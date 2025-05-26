@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 
 
 import { DataSource } from 'typeorm';
+import { UserEntity } from './entities/users.entity';
 config();
 
 const configService = new ConfigService();
@@ -15,5 +16,5 @@ export const AppDataSource = new DataSource({
     username: configService.getOrThrow('MYSQL_USERNAME'),
     password: configService.getOrThrow('MYSQL_PASSWORD'),
     migrations: ['migrations/**'],
-    entities:[]
+    entities:[UserEntity]
 });
