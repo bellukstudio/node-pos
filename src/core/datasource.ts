@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 
 
 import { DataSource } from 'typeorm';
-import { UserEntity } from './entities/users.entity';
+import { UserEntity } from './entities/user/users.entity';
 config();
 
 const configService = new ConfigService();
