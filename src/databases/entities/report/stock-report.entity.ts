@@ -6,7 +6,7 @@ import { BranchEntity } from "../branch/branch.entity";
 @Entity("stock_reports")
 export class StockReportEntity {
     @PrimaryGeneratedColumn("uuid")
-    id:string;
+    id: string;
 
     @ManyToOne(() => ProductEntity)
     @JoinColumn({ name: 'product_id' })
@@ -29,13 +29,13 @@ export class StockReportEntity {
     remainingStock: number;
 
     @Column({ nullable: true })
-    deletedAt: Date;
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 
-    
+
 }

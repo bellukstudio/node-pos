@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from "@nestjs/core"
+import { BranchModule } from './branch/branch.module';
 @Module({
   imports: [
     AuthModule,
@@ -12,7 +13,10 @@ import { RouterModule } from "@nestjs/core"
             path: "auth",
             module: AuthModule,
           },
-
+          {
+            path: "branch",
+            module: BranchModule
+          }
         ],
       },
     ]),

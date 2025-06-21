@@ -30,9 +30,12 @@ export class ShiftActivityLogEntity {
     @Column()
     activityTime: Date;
 
+    @Column({ nullable: true })
+    deleted_at: Date
+
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

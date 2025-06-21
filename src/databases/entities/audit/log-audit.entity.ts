@@ -83,9 +83,12 @@ export class AuditLogEntity {
     @Column({ nullable: true, type: 'text' })
     deviceInfo: string;
 
+    @Column({ nullable: true })
+    deleted_at: Date
+
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

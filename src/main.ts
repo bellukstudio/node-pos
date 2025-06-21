@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { doubleCsrf } from 'csrf-csrf';
 import * as dotenv from 'dotenv';
+import { ConfigService } from '@nestjs/config';
+import registerSwaggerModule from './core/swagger/swagger';
 
 dotenv.config(); // Load .env configuration
 
@@ -20,7 +22,7 @@ async function bootstrap() {
 
   // Enable CORS for frontend access
   app.enableCors({
-    origin: process.env.FRONTEND_URL || '*', 
+    origin: process.env.FRONTEND_URL || '*',
     credentials: true,
   });
 
@@ -37,7 +39,9 @@ async function bootstrap() {
   };
 
   const { doubleCsrfProtection } = doubleCsrf(doubleCsrfOptions);
-
+  // SWAGGER
+  const configService = app.get(ConfigService);
+  await registerSwaggerModule(app, configService);
   // Apply CSRF protection middleware
   app.use(doubleCsrfProtection);
 

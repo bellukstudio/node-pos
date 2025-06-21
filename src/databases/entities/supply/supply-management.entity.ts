@@ -17,15 +17,15 @@ export class SupplyManagementEntity {
     @Column({ unique: true })
     email: string;
 
-    @Column({ default: true }) 
+    @Column({ default: true })
     status: boolean;
 
     @Column({ nullable: true })
-    deletedAt: Date;
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

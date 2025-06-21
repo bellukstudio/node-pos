@@ -14,12 +14,12 @@ export class PointsLoyaltyEntity {
     @Column()
     points: number;
 
+    @Column({ nullable: true })
+    deleted_at: Date
+
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
-
-    @Column({ nullable: true })
-    deletedAt: Date;
+    updated_at: Date;
 }

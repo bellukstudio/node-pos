@@ -22,18 +22,18 @@ export class ReturnOfGoodsEntity {
     @Column()
     reason: string;
 
-    @Column({type: "enum", enum : ["to_customer", "to_supplier"]})
+    @Column({ type: "enum", enum: ["to_customer", "to_supplier"] })
     type: "to_customer" | "to_supplier";
 
     @Column()
     returnDate: Date;
 
     @Column({ nullable: true })
-    deletedAt: Date;
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date
+    updated_at: Date;
 }

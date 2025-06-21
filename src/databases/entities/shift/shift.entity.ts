@@ -51,9 +51,12 @@ export class ShiftEntity {
     })
     shiftStatus: 'active' | 'closed' | 'cancelled';
 
+    @Column({ nullable: true })
+    deleted_at: Date
+
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

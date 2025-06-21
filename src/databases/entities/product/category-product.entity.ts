@@ -7,18 +7,17 @@ export class CategoryProductEntity {
     id: string;
 
     @Column()
-    name:string;
+    name: string;
 
     @Column()
-    description:string;
+    description: string;
 
-    @Column({nullable:true})
-    deletedAt:Date;
-
+    @Column({ nullable: true })
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

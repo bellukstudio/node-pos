@@ -8,24 +8,24 @@ export class MemberEntity {
     @Column()
     name: string;
 
-    @Column({unique: true, nullable: true})
+    @Column({ unique: true, nullable: true })
     email: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     phoneNumber: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     address: string;
 
     @Column()
     loyaltyPoint: number;
 
-    @Column({nullable: true})
-    deletedAt: Date;
-    
+    @Column({ nullable: true })
+    deleted_at: Date
+
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

@@ -6,12 +6,12 @@ import { ProductEntity } from "../product/product.entity";
 @Entity("discount_npromo")
 export class DiscountNpromoEntity {
     @PrimaryGeneratedColumn("uuid")
-    id:string;
+    id: string;
 
     @Column()
-    promoName:string;
+    promoName: string;
 
-    @Column({type: "enum", enum: ["presentase", "nominal"]})
+    @Column({ type: "enum", enum: ["presentase", "nominal"] })
     typePromo: "presentase" | "nominal";
 
     @Column({})
@@ -26,17 +26,17 @@ export class DiscountNpromoEntity {
     product: ProductEntity;
 
     @Column()
-    expired : Date;
+    expired: Date;
 
     @Column()
-    status : boolean;
+    status: boolean;
 
     @Column({ nullable: true })
-    deletedAt: Date;
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 }

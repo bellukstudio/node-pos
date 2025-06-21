@@ -5,10 +5,10 @@ import { BranchEntity } from "../branch/branch.entity";
 @Entity("sales_report")
 export class SalesReportEntity {
     @PrimaryGeneratedColumn("uuid")
-    id:string;
+    id: string;
 
     @Column()
-    dateReport:Date;
+    dateReport: Date;
 
     @ManyToOne(() => BranchEntity)
     @JoinColumn({ name: 'branch_id' })
@@ -30,12 +30,12 @@ export class SalesReportEntity {
     totalProfit: number;
 
     @Column({ nullable: true })
-    deletedAt: Date;
+    deleted_at: Date
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 
 }
