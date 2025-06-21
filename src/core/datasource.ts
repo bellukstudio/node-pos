@@ -31,7 +31,7 @@ config();
 const configService = new ConfigService();
 
 export const AppDataSource = new DataSource({
-    type: 'mysql',
+    type: 'postgres',
     host: configService.getOrThrow('POSTGRES_HOST'),
     port: configService.getOrThrow('POSTGRES_PORT'),
     database: configService.getOrThrow('POSTGRES_DATABASE'),
