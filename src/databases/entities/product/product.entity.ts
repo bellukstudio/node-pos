@@ -13,8 +13,8 @@ export class ProductEntity {
     @Column()
     description: string;
 
-    @Column()
-    image: string;
+    @Column({ nullable: true })
+    image?: string;
 
     @Column()
     status: boolean;
