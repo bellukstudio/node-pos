@@ -26,7 +26,7 @@ export class BranchController {
 
     @Get()
     @HttpCode(HttpStatus.OK)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.SuperAdmin)
     /**
      * Finds all branches.
      *
@@ -47,7 +47,7 @@ export class BranchController {
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.SuperAdmin)
     /**
      * Finds a branch by id.
      *
@@ -61,7 +61,7 @@ export class BranchController {
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.SuperAdmin)
     /**
      * Creates a new branch.
      *
@@ -74,7 +74,7 @@ export class BranchController {
 
     @Put(':id')
     @HttpCode(HttpStatus.OK)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.SuperAdmin)
     /**
      * Updates an existing branch.
      *
@@ -92,7 +92,7 @@ export class BranchController {
 
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.SuperAdmin)
     /**
      * Deletes a branch.
      *
