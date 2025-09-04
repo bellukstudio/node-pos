@@ -8,11 +8,11 @@ export class SalesDetailEntity {
     id: string;
 
     @ManyToOne(() => SalesManagementEntity)
-    @JoinColumn({ name: 'salesId' })
+    @JoinColumn({ name: 'sales_id' })
     sales: SalesManagementEntity
 
     @ManyToOne(() => ProductEntity)
-    @JoinColumn({ name: 'productId' })
+    @JoinColumn({ name: 'product_id' })
     product: ProductEntity
 
     @Column()

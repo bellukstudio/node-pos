@@ -4,6 +4,8 @@ import { RouterModule } from "@nestjs/core"
 import { BranchModule } from './branch/branch.module';
 import { CategoryProductModule } from './categoryProduct/categoryProduct.module';
 import { ProductModule } from './product/product.module';
+import { TransactionModule } from './transaction/transaction.module';
+import { TransactionDetailModule } from './transaction_detail/transaction_detail.module';
 @Module({
   imports: [
     AuthModule,
@@ -26,6 +28,14 @@ import { ProductModule } from './product/product.module';
           {
             path: "product",
             module: ProductModule
+          },
+          {
+            path: "transaction",
+            module: TransactionModule
+          },
+          {
+            path: "transaction-detail",
+            module: TransactionDetailModule
           }
         ],
       },
