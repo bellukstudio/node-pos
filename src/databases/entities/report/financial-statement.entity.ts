@@ -29,6 +29,6 @@ export class FinancialStatementEntity {
     @CreateDateColumn()
     created_at: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ nullable: true })
     updated_at: Date;
 }

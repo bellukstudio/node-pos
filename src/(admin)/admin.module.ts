@@ -3,6 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { RouterModule } from "@nestjs/core"
 import { BranchModule } from './branch/branch.module';
 import { CategoryProductModule } from './categoryProduct/categoryProduct.module';
+import { ProductModule } from './product/product.module';
 @Module({
   imports: [
     AuthModule,
@@ -21,6 +22,10 @@ import { CategoryProductModule } from './categoryProduct/categoryProduct.module'
           {
             path: "category-product",
             module: CategoryProductModule
+          },
+          {
+            path: "product",
+            module: ProductModule
           }
         ],
       },
