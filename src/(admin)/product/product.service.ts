@@ -97,17 +97,16 @@ export class ProductService {
         if (!product) throw new NotFoundException('Product not found');
         const updated = Object.assign(product, dto);
         return this.productRepository.save(updated);
-        /*************  ✨ Windsurf Command ⭐  *************/
-        /**
-         * Deletes a product by id.
-         *
-         * @param {string} id - The id of the product to delete.
-         * @returns {Promise<void>} A promise that resolves when the product has been deleted.
-         * @throws {NotFoundException} If the product is not found.
-         */
-        /*******  19d3d1b2-34f6-4bd4-a1ca-de14bda4c4c9  *******/
-}
 
+    }
+
+    /**
+        * Deletes a product by id.
+        *
+        * @param {string} id - The id of the product to delete.
+        * @returns {Promise<void>} A promise that resolves when the product has been deleted.
+        * @throws {NotFoundException} If the product is not found.
+        */
     async delete(id: string) {
 
         const product = await this.productRepository.findOne({ where: { id } });
