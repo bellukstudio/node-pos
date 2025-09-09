@@ -4,6 +4,9 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 export class MemberEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string;
+    
+    @Column()
+    customer_id: number
 
     @Column()
     name: string;
@@ -17,8 +20,8 @@ export class MemberEntity {
     @Column({ nullable: true })
     address: string;
 
-    @Column()
-    loyaltyPoint: number;
+    @Column({ nullable: true })
+    loyalty_point: number;
 
     @Column({ nullable: true })
     deleted_at: Date
