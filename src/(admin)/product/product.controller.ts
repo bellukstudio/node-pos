@@ -40,7 +40,7 @@ export class ProductController {
         return this.productService.getAll(queries);
     }
 
-    @Get('id')
+    @Get(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
     /**

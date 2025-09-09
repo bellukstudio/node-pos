@@ -6,6 +6,7 @@ import { CategoryProductModule } from './categoryProduct/categoryProduct.module'
 import { ProductModule } from './product/product.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionDetailModule } from './transaction_detail/transaction_detail.module';
+import { CustomerModule } from './customer/customer.module';
 @Module({
   imports: [
     AuthModule,
@@ -36,6 +37,10 @@ import { TransactionDetailModule } from './transaction_detail/transaction_detail
           {
             path: "transaction-detail",
             module: TransactionDetailModule
+          },
+          {
+            path: 'customer',
+            module: CustomerModule
           }
         ],
       },

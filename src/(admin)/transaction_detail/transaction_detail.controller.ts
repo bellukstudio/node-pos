@@ -37,7 +37,9 @@ export class TransactionDetailController {
     getAll(@Query() queries: any) {
         return this.transactionDetailService.getAll(queries);
     }
-    @Get()
+
+    
+    @Get(":id")
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
 
