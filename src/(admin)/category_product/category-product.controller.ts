@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/core/guard/role.guard";
-import { CategoryProductService } from "./categoryProduct.service";
+import { CategoryProductService } from "./category-product.service";
 import { Roles } from "src/core/decorators/role.decorator";
 import { Role } from "src/core/enum/role.enum";
 import { CategoryProductDto } from "./dto/category-product.dto";

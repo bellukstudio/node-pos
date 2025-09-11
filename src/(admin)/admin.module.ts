@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from "@nestjs/core"
 import { BranchModule } from './branch/branch.module';
-import { CategoryProductModule } from './categoryProduct/categoryProduct.module';
+import { CategoryProductModule } from './category_product/category-product.module';
 import { ProductModule } from './product/product.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionDetailModule } from './transaction_detail/transaction_detail.module';
