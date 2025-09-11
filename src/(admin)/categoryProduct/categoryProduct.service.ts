@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CategoryProductEntity } from "src/databases/entities/product/category-product.entity";
 import { ILike, Repository } from "typeorm";
-import { CreateCategoryProductDto } from "./dto/create-category-product.dto";
-import { UpdateCategoryProductDto } from "./dto/update-category-product.dto";
+import { CategoryProductDto } from "./dto/category-product.dto";
 
 @Injectable()
 export class CategoryProductService {
@@ -80,10 +79,10 @@ export class CategoryProductService {
     /**
      * Creates a new category product.
      *
-     * @param {CreateCategoryProductDto} dto - The data transfer object containing the new category product information.
+     * @param {CategoryProductDto} dto - The data transfer object containing the new category product information.
      * @returns {Promise<CategoryProductEntity>} The newly created category product entity.
      */
-    async create(dto: CreateCategoryProductDto) {
+    async create(dto: CategoryProductDto) {
         const category = this.categoryProductRepository.create(dto);
 
         return this.categoryProductRepository.save(category);
@@ -93,11 +92,11 @@ export class CategoryProductService {
      * Updates an existing category product.
      *
      * @param {string} id - The id of the category product to update.
-     * @param {UpdateCategoryProductDto} dto - The data transfer object containing the updated category product information.
+     * @param {CategoryProductDto} dto - The data transfer object containing the updated category product information.
      * @returns {Promise<CategoryProductEntity>} The updated category product entity.
      * @throws {NotFoundException} If the category product is not found.
      */
-    async update(id: string, dto: UpdateCategoryProductDto) {
+    async update(id: string, dto: CategoryProductDto) {
         const category = await this.categoryProductRepository.findOne({ where: { id } });
         if (!category) throw new NotFoundException('Category not found');
 

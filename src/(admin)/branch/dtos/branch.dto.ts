@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
 
-export class CreateBranchDto{
+export class BranchDto{
     @IsNotEmpty() @IsString()
     readonly name: string;
 
@@ -15,7 +15,7 @@ export class CreateBranchDto{
     readonly province: string;
 
     @IsNotEmpty() @IsString()
-    readonly phoneNumber: string;
+    readonly phone_number: string;
     
     @IsNotEmpty() @IsString()
     readonly status: boolean;

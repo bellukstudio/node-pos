@@ -17,16 +17,16 @@ export class StockReportEntity {
     branch: BranchEntity;
 
     @Column()
-    initialStock: number;
+    initial_stock: number;
 
     @Column()
-    stockSold: number;
+    stock_sold: number;
 
     @Column()
-    stockIn: number;
+    stock_inn: number;
 
     @Column()
-    remainingStock: number;
+    remaining_stock: number;
 
     @Column({ nullable: true })
     deleted_at: Date

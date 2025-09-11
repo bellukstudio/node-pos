@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { SalesManagementEntity } from "src/databases/entities/sales/sales-management.entity";
 import { ILike, Repository } from "typeorm";
-import { CreateTransactionDto } from "./dtos/create-transaction.dto";
-import { UpdateTransactionDto } from "./dtos/update-transaction.dto";
+import { TransactionDto } from "./dtos/transaction.dto";
 
 
 @Injectable()
@@ -40,7 +39,11 @@ export class TransactionService {
         const skip = (parseInt(page) - 1) * take;
 
         const where = search ? [
-            { name: ILike(`%${search}%`) }
+            { transaction_number: ILike(`%${search}%`) },
+            { method_payment: ILike(`%${search}%`) },
+            { user: ILike(`%${search}%`) },
+            { branch: ILike(`%${search}%`) },
+            { status_payment: ILike(`%${search}%`) }
         ] : {};
 
         const [result, total] = await this.salesManagementRepository.findAndCount({
@@ -53,9 +56,9 @@ export class TransactionService {
         return {
             data: result,
             total,
-            page,
-            per_page,
-            total_pages: Math.ceil(total / per_page)
+            page: parseInt(page),
+            per_page: take,
+            total_pages: Math.ceil(total / take)
         }
     }
 
@@ -76,10 +79,10 @@ export class TransactionService {
     /**
      * Creates a new transaction.
      *
-     * @param {CreateTransactionDto} dto - The data transfer object containing the new transaction information.
+     * @param {TransactionDto} dto - The data transfer object containing the new transaction information.
      * @returns {Promise<SalesManagementEntity>} The newly created transaction entity.
      */
-    async create(dto: CreateTransactionDto) {
+    async create(dto: TransactionDto) {
         const transaction = this.salesManagementRepository.create(dto);
         return this.salesManagementRepository.save(transaction);
     }
@@ -88,11 +91,11 @@ export class TransactionService {
      * Updates an existing transaction.
      *
      * @param {string} id - The id of the transaction to update.
-     * @param {UpdateTransactionDto} dto - The data transfer object containing the updated transaction information.
+     * @param {TransactionDto} dto - The data transfer object containing the updated transaction information.
      * @returns {Promise<SalesManagementEntity>} The updated transaction entity.
      * @throws {NotFoundException} If the transaction is not found.
      */
-    async update(id: string, dto: UpdateTransactionDto) {
+    async update(id: string, dto: TransactionDto) {
 
         const transaction = await this.salesManagementRepository.findOneBy({ id });
         if (!transaction) throw new NotFoundException('Transaction not found');

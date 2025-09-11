@@ -3,8 +3,7 @@ import { CustomerService } from "./customer.service";
 import { AuthGuard } from "@nestjs/passport";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
-import { CreateCustomerDto } from "./dtos/create-customer.dto";
-import { UpdateCustomerDto } from "./dtos/update-customer.dto";
+import { CustomerDto } from "./dtos/customer.dto";
 
 @Controller('customer')
 @UseGuards(AuthGuard('jwt'))
@@ -57,10 +56,10 @@ export class CustomerController {
     /**
      * Creates a new customer.
      *
-     * @param {CreateCustomerDto} dto - The data transfer object containing the new customer information.
+     * @param {CustomerDto} dto - The data transfer object containing the new customer information.
      * @returns {Promise<MemberEntity>} The newly created customer entity.
      */
-    create(@Body() dto: CreateCustomerDto) {
+    create(@Body() dto: CustomerDto) {
         return this.customerService.create(dto);
 
     }
@@ -72,11 +71,11 @@ export class CustomerController {
      * Updates an existing customer.
      *
      * @param {string} id - The id of the customer to update.
-     * @param {UpdateCustomerDto} dto - The data transfer object containing the updated customer information.
+     * @param {CustomerDto} dto - The data transfer object containing the updated customer information.
      * @returns {Promise<MemberEntity>} The updated customer entity.
      * @throws {NotFoundException} If the customer is not found.
      */
-    update(@Param('id') id: string, @Body() dto: UpdateCustomerDto) {
+    update(@Param('id') id: string, @Body() dto: CustomerDto) {
         return this.customerService.update(id, dto);
     }
 

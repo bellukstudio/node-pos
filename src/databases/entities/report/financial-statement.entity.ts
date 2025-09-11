@@ -8,20 +8,20 @@ export class FinancialStatementEntity {
     id: string;
 
     @Column()
-    dateReport: Date;
+    date_report: Date;
 
     @ManyToOne(() => BranchEntity)
     @JoinColumn({ name: 'branch_id' })
     branch: BranchEntity;
 
     @Column()
-    totalIncome: number;
+    total_income: number;
 
     @Column()
-    totalExpenditure: number;
+    total_expenditure: number;
 
     @Column()
-    netProfit: number;
+    net_profit: number;
     
     @Column({ nullable: true })
     deleted_at: Date

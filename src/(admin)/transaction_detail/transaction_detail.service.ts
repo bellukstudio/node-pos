@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { SalesDetailEntity } from "src/databases/entities/sales/sales-detail.entity";
 import { ILike, Repository } from "typeorm";
-import { CreateTransactionDetailDto } from "./dtos/create_transaction_detail.dto";
-import { UpdateTransactionDetailDto } from "./dtos/update_transaction_detail.dto";
+import { TransactionDetailDto } from "./dtos/transaction_detail.dto";
 
 @Injectable()
 export class TransactionDetailService {
@@ -40,7 +39,8 @@ export class TransactionDetailService {
 
 
         const where = search ? [
-            { name: ILike(`%${search}%`) }
+            { sales: ILike(`%${search}%`) },
+            { product: ILike(`%${search}%`) }
         ] : {};
         const [result, total] = await this.salesDetailRepository.findAndCount({
             where,
@@ -51,9 +51,9 @@ export class TransactionDetailService {
         return {
             data: result,
             total,
-            page,
-            per_page,
-            total_pages: Math.ceil(total / per_page)
+            page: parseInt(page),
+            per_page: take,
+            total_pages: Math.ceil(total / take)
         }
     }
     /**
@@ -71,10 +71,10 @@ export class TransactionDetailService {
     /**
      * Creates a new transaction.
      *
-     * @param {CreateTransactionDetailDto} dto - The data transfer object containing the new transaction information.
+     * @param {TransactionDetailDto} dto - The data transfer object containing the new transaction information.
      * @returns {Promise<SalesDetailEntity>} The newly created transaction entity.
      */
-    async create(dto: CreateTransactionDetailDto) {
+    async create(dto: TransactionDetailDto) {
         const transaction = this.salesDetailRepository.create(dto);
 
         return this.salesDetailRepository.save(transaction);
@@ -83,11 +83,11 @@ export class TransactionDetailService {
      * Updates an existing transaction.
      *
      * @param {string} id - The id of the transaction to update.
-     * @param {UpdateTransactionDetailDto} dto - The data transfer object containing the updated transaction information.
+     * @param {TransactionDetailDto} dto - The data transfer object containing the updated transaction information.
      * @returns {Promise<SalesDetailEntity>} The updated transaction entity.
      * @throws {NotFoundException} If the transaction is not found.
      */
-    async update(id: string, dto: UpdateTransactionDetailDto) {
+    async update(id: string, dto: TransactionDetailDto) {
         const transaction = await this.salesDetailRepository.findOneBy({ id });
         if (!transaction) throw new NotFoundException('Transaction not found');
         const updated = Object.assign(transaction, dto);

@@ -15,7 +15,7 @@ export class MemberEntity {
     email: string;
 
     @Column({ nullable: true })
-    phoneNumber: string;
+    phone_number: string;
 
     @Column({ nullable: true })
     address: string;

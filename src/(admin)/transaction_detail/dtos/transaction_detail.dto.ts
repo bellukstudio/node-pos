@@ -3,7 +3,7 @@ import { ProductEntity } from "src/databases/entities/product/product.entity"
 import { SalesManagementEntity } from "src/databases/entities/sales/sales-management.entity"
 
 
-export class CreateTransactionDetailDto {
+export class TransactionDetailDto {
     @IsNotEmpty()
     readonly sales: SalesManagementEntity
 
@@ -16,9 +16,9 @@ export class CreateTransactionDetailDto {
 
     @IsNotEmpty()
     @IsNumber()
-    readonly unitPrice: number
+    readonly unit_price: number
 
     @IsNotEmpty()
     @IsNumber()
-    readonly totalPrice: number
+    readonly total_price: number
 }

@@ -24,32 +24,32 @@ export class ShiftEntity {
     cashier: UserEntity;
 
     @Column()
-    timeIn: Date;
+    time_in: Date;
 
     @Column({ nullable: true })
-    timeOut: Date;
+    time_out: Date;
 
     @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
-    totalSales: number;
+    total_sales: number;
 
     @Column({ default: 0 })
-    totalTransactions: number;
+    total_transactions: number;
 
     @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
-    openingCash: number;
+    opening_cash: number;
 
     @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
-    closingCash: number;
+    closing_cash: number;
 
     @Column({ type: 'text', nullable: true })
-    shiftNote: string;
+    shift_note: string;
 
     @Column({
         type: 'enum',
         enum: ['active', 'closed', 'cancelled'],
         default: 'active',
     })
-    shiftStatus: 'active' | 'closed' | 'cancelled';
+    shift_status: 'active' | 'closed' | 'cancelled';
 
     @Column({ nullable: true })
     deleted_at: Date

@@ -3,8 +3,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { ProductService } from "./product.service";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
-import { CreateProductDto } from "./dtos/create-product.dto";
-import { UpdateProductDto } from "./dtos/update-product.dto";
+import { ProductDto } from "./dtos/product.dto";
 
 @Controller('product')
 @UseGuards(AuthGuard('jwt'))
@@ -50,7 +49,7 @@ export class ProductController {
      * @returns {Promise<ProductEntity>} The found product entity.
      * @throws {NotFoundException} If the product is not found.
      */
-    getById(@Query('id') id: string) {
+    getById(@Param('id') id: string) {
         return this.productService.getById(id);
     }
 
@@ -60,10 +59,10 @@ export class ProductController {
     /**
      * Creates a new product.
      * 
-     * @param {CreateProductDto} dto - The data transfer object containing the new product information.
+     * @param {ProductDto} dto - The data transfer object containing the new product information.
      * @returns {Promise<ProductEntity>} The newly created product entity.
      */
-    create(@Body() dto: CreateProductDto) {
+    create(@Body() dto: ProductDto) {
         return this.productService.create(dto);
     }
 
@@ -75,11 +74,11 @@ export class ProductController {
      * Updates an existing product.
      * 
      * @param {string} id - The id of the product to update.
-     * @param {UpdateProductDto} dto - The data transfer object containing the updated product information.
+     * @param {ProductDto} dto - The data transfer object containing the updated product information.
      * @returns {Promise<ProductEntity>} The updated product entity.
      * @throws {NotFoundException} If the product is not found.
      */
-    update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+    update(@Param('id') id: string, @Body() dto: ProductDto) {
         return this.productService.update(id, dto);
     }
 

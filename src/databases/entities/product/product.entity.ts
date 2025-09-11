@@ -32,10 +32,10 @@ export class ProductEntity {
     barcode: string;
 
     @Column()
-    purchasePrice: number;
+    purchase_price: number;
 
     @Column()
-    salePrice: number;
+    sale_price: number;
 
     @ManyToOne(() => CategoryProductEntity)
     @JoinColumn({ name: 'categoryId' })

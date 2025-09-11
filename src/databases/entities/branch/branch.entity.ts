@@ -18,7 +18,7 @@ export class BranchEntity {
     province: string;
 
     @Column()
-    phoneNumber: string;
+    phone_number: string;
 
     @Column({ default: false })
     status: boolean;

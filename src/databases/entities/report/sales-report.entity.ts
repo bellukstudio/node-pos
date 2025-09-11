@@ -8,26 +8,26 @@ export class SalesReportEntity {
     id: string;
 
     @Column()
-    dateReport: Date;
+    date_report: Date;
 
     @ManyToOne(() => BranchEntity)
     @JoinColumn({ name: 'branch_id' })
     branch: BranchEntity;
 
     @Column()
-    totalSales: number;
+    total_sales: number;
 
     @Column()
-    totalIncome: number;
+    total_income: number;
 
     @Column()
-    totalDiscount: number;
+    total_discount: number;
 
     @Column()
-    totalTax: number;
+    total_tax: number;
 
     @Column()
-    totalProfit: number;
+    total_profit: number;
 
     @Column({ nullable: true })
     deleted_at: Date

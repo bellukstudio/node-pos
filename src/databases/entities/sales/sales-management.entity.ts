@@ -8,7 +8,7 @@ export class SalesManagementEntity {
     id: string;
 
     @Column()
-    transactionNumber: string
+    transaction_number: string
 
     @ManyToOne(() => UserEntity)
     @JoinColumn({ name: 'cashier_id' })
@@ -20,7 +20,7 @@ export class SalesManagementEntity {
     branch: BranchEntity;
 
     @Column()
-    totalPrice: number;
+    total_price: number;
 
     @Column({ nullable: true })
     tax: number;
@@ -30,16 +30,16 @@ export class SalesManagementEntity {
     discount: number;
 
     @Column()
-    totalPayment: number;
+    total_payment: number;
 
     @Column()
-    methodPayment: string;
+    method_payment: string;
 
     @Column({ type: "enum", enum: ["finished", "pending", "canceled"] })
-    statusPayment: "finished" | "pending" | "canceled";
+    status_payment: "finished" | "pending" | "canceled";
 
     @Column()
-    transactionTime: string;
+    transaction_time: string;
 
     @Column({ nullable: true })
     deleted_at: Date

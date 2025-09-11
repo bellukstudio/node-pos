@@ -19,10 +19,10 @@ export class DetailPurchaseEntity {
     amount: number;
 
     @Column()
-    unitPrice: number;
+    unit_Price: number;
 
     @Column()
-    subTotal: number;
+    sub_total: number;
 
     @Column({ nullable: true })
     deleted_at: Date

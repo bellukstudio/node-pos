@@ -7,6 +7,9 @@ import { ProductModule } from './product/product.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionDetailModule } from './transaction_detail/transaction_detail.module';
 import { CustomerModule } from './customer/customer.module';
+import { SupplierModule } from './supplier/supplier.module';
+import { DetailPurchaseModule } from './detail_purchase/detail-purchase.module';
+import { PurchaseProductModule } from './purchase_product/purchase-product.module';
 @Module({
   imports: [
     AuthModule,
@@ -41,7 +44,19 @@ import { CustomerModule } from './customer/customer.module';
           {
             path: 'customer',
             module: CustomerModule
-          }
+          },
+          {
+            path: 'supplier',
+            module: SupplierModule
+          },
+          {
+            path: 'purchase-product',
+            module: PurchaseProductModule
+          },
+          {
+            path: 'detail-purchase',
+            module: DetailPurchaseModule
+          },
         ],
       },
     ]),

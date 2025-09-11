@@ -2,7 +2,7 @@ import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { BranchEntity } from "src/databases/entities/branch/branch.entity";
 import { CategoryProductEntity } from "src/databases/entities/product/category-product.entity";
 
-export class CreateProductDto {
+export class ProductDto {
 
     @IsNotEmpty()  @IsString()
     readonly name: string;
@@ -27,10 +27,10 @@ export class CreateProductDto {
     readonly barcode: string
 
     @IsNotEmpty() @IsNumber()
-    readonly purchasePrice: number
+    readonly purchase_price: number
 
     @IsNotEmpty() @IsNumber()
-    readonly salePrice: number
+    readonly sale_price: number
 
     @IsNotEmpty()
     readonly category: CategoryProductEntity
