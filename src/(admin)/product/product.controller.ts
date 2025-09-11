@@ -4,9 +4,10 @@ import { ProductService } from "./product.service";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
 import { ProductDto } from "./dtos/product.dto";
+import { RolesGuard } from "src/core/guard/role.guard";
 
-@Controller('product')
-@UseGuards(AuthGuard('jwt'))
+@Controller()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ProductController {
 
     /**

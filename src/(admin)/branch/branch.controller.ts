@@ -18,7 +18,7 @@ import { BranchDto } from './dtos/branch.dto';
 import { Role } from 'src/core/enum/role.enum';
 import { Roles } from 'src/core/decorators/role.decorator';
 
-@Controller('branch')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class BranchController {
     constructor(private readonly branchService: BranchService) { }

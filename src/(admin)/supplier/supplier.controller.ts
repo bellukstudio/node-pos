@@ -1,10 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { SupplierService } from "./supplier.service";
 import { Roles } from '../../core/decorators/role.decorator';
 import { Role } from "src/core/enum/role.enum";
 import { SupplierDto } from "./dtos/supplier.dto";
+import { RolesGuard } from "src/core/guard/role.guard";
+import { AuthGuard } from "@nestjs/passport";
 
-@Controller('supplier')
+@Controller()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class SupplierController {
     /**
      * The constructor for the SupplierController.

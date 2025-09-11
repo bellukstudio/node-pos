@@ -10,6 +10,9 @@ import { CustomerModule } from './customer/customer.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { DetailPurchaseModule } from './detail_purchase/detail-purchase.module';
 import { PurchaseProductModule } from './purchase_product/purchase-product.module';
+import { ReturnGoodsModule } from './return_goods/return-goods.module';
+import { MutationStockModule } from './mutation_stock/mutation-stock.module';
+import { UserModule } from './user/user.module';
 @Module({
   imports: [
     AuthModule,
@@ -24,6 +27,10 @@ import { PurchaseProductModule } from './purchase_product/purchase-product.modul
           {
             path: "branch",
             module: BranchModule
+          },
+          {
+            path: 'user',
+            module: UserModule
           },
           {
             path: "category-product",
@@ -57,6 +64,14 @@ import { PurchaseProductModule } from './purchase_product/purchase-product.modul
             path: 'detail-purchase',
             module: DetailPurchaseModule
           },
+          {
+            path: 'return-of-goods',
+            module: ReturnGoodsModule
+          },
+          {
+            path: 'mutation-stock',
+            module: MutationStockModule
+          }
         ],
       },
     ]),

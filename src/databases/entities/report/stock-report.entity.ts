@@ -23,7 +23,7 @@ export class StockReportEntity {
     stock_sold: number;
 
     @Column()
-    stock_inn: number;
+    stock_in: number;
 
     @Column()
     remaining_stock: number;

@@ -1,10 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { ReturnOfGoodsService } from "./return-goods.service";
 import { ReturnGoodsDto } from "./dtos/return-goods.dto";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
+import { RolesGuard } from "src/core/guard/role.guard";
+import { AuthGuard } from "@nestjs/passport";
 
-@Controller('return-goods')
+@Controller()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ReturnGoodsController {
 
     /**
