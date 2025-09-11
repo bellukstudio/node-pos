@@ -7,7 +7,7 @@ import { Role } from "src/core/enum/role.enum";
 import { CategoryProductDto } from "./dto/category-product.dto";
 
 
-@Controller('category-product')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class CategoryProductController {
 

@@ -4,9 +4,10 @@ import { AuthGuard } from "@nestjs/passport";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
 import { CustomerDto } from "./dtos/customer.dto";
+import { RolesGuard } from "src/core/guard/role.guard";
 
-@Controller('customer')
-@UseGuards(AuthGuard('jwt'))
+@Controller()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class CustomerController {
 
     constructor(

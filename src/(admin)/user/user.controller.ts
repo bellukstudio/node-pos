@@ -6,7 +6,7 @@ import { Roles } from "src/core/decorators/role.decorator";
 import { Role } from "src/core/enum/role.enum";
 import { UserDto } from "./dtos/user.dto";
 
-@Controller('users')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class UserController {
 
