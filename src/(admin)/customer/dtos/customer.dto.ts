@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-export class CreateCustomerDto {
+export class CustomerDto {
 
     @IsNotEmpty() @IsNumber()
     readonly customer_id: number
@@ -12,7 +12,7 @@ export class CreateCustomerDto {
     readonly email: string
 
     @IsNotEmpty() @IsString()
-    readonly phoneNumber: string
+    readonly phone_number: string
 
     @IsNotEmpty() @IsString()
     readonly address: string

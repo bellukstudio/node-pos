@@ -9,13 +9,13 @@ export class DiscountNpromoEntity {
     id: string;
 
     @Column()
-    promoName: string;
+    promo_name: string;
 
     @Column({ type: "enum", enum: ["presentase", "nominal"] })
-    typePromo: "presentase" | "nominal";
+    type_promo: "presentase" | "nominal";
 
     @Column({})
-    promoValue: string;
+    promo_value: string;
 
     @ManyToOne(() => BranchEntity)
     @JoinColumn({ name: 'branch_id' })

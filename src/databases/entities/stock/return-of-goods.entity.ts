@@ -26,7 +26,7 @@ export class ReturnOfGoodsEntity {
     type: "to_customer" | "to_supplier";
 
     @Column()
-    returnDate: Date;
+    return_date: Date;
 
     @Column({ nullable: true })
     deleted_at: Date

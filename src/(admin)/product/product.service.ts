@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from "src/databases/entities/product/product.entity";
 import { ILike, Repository } from "typeorm";
-import { CreateProductDto } from "./dtos/create-product.dto";
-import { UpdateProductDto } from "./dtos/update-product.dto";
+import { ProductDto } from "./dtos/product.dto";
 
 @Injectable()
 export class ProductService {
@@ -74,10 +73,10 @@ export class ProductService {
     /**
      * Creates a new product.
      *
-     * @param {CreateProductDto} dto - The data transfer object containing the new product information.
+     * @param {ProductDto} dto - The data transfer object containing the new product information.
      * @returns {Promise<ProductEntity>} The newly created product entity.
      */
-    async create(dto: CreateProductDto) {
+    async create(dto: ProductDto) {
         const product = this.productRepository.create(dto);
         return this.productRepository.save(product);
     }
@@ -87,11 +86,11 @@ export class ProductService {
      * Updates an existing product.
      *
      * @param {string} id - The id of the product to update.
-     * @param {UpdateProductDto} dto - The data transfer object containing the updated product information.
+     * @param {ProductDto} dto - The data transfer object containing the updated product information.
      * @returns {Promise<ProductEntity>} The updated product entity.
      * @throws {NotFoundException} If the product is not found.
      */
-    async update(id: string, dto: UpdateProductDto) {
+    async update(id: string, dto: ProductDto) {
 
         const product = await this.productRepository.findOne({ where: { id } });
         if (!product) throw new NotFoundException('Product not found');

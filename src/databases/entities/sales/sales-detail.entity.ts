@@ -19,10 +19,10 @@ export class SalesDetailEntity {
     quantity: number
 
     @Column()
-    unitPrice: number
+    unit_price: number
 
     @Column()
-    totalPrice: number
+    total_price: number
 
     @Column({ nullable: true })
     deleted_at: Date

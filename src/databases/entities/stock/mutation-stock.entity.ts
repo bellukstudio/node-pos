@@ -23,10 +23,10 @@ export class MutationStockEntity {
     amount: number;
 
     @Column()
-    remainingStock: number;
+    remaining_stock: number;
 
     @Column()
-    mutationDate: Date;
+    mutation_date: Date;
 
     @Column({ nullable: true })
     deleted_at: Date

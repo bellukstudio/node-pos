@@ -2,8 +2,7 @@ import { TransactionDetailService } from "./transaction_detail.service";
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
 import { Roles } from "src/core/decorators/role.decorator";
 import { Role } from "src/core/enum/role.enum";
-import { CreateTransactionDetailDto } from "./dtos/create_transaction_detail.dto";
-import { UpdateTransactionDetailDto } from "./dtos/update_transaction_detail.dto";
+import { TransactionDetailDto } from "./dtos/transaction_detail.dto";
 @Controller('transaction-detail')
 export class TransactionDetailController {
 
@@ -50,7 +49,7 @@ export class TransactionDetailController {
      * @returns The found transaction detail entity.
      * @throws {NotFoundException} If the transaction detail is not found.
      */
-    getById(@Query('id') id: string) {
+    getById(@Param('id') id: string) {
         return this.transactionDetailService.getById(id);
     }
 
@@ -58,7 +57,7 @@ export class TransactionDetailController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @Roles(Role.Admin, Role.SuperAdmin)
-    create(@Body() dto: CreateTransactionDetailDto) {
+    create(@Body() dto: TransactionDetailDto) {
         return this.transactionDetailService.create(dto);
     }
 
@@ -75,7 +74,7 @@ export class TransactionDetailController {
      * @returns The updated transaction detail entity.
      * @throws {NotFoundException} If the transaction detail is not found.
      */
-    update(@Param('id') id: string, @Body() dto: UpdateTransactionDetailDto) {
+    update(@Param('id') id: string, @Body() dto: TransactionDetailDto) {
         return this.transactionDetailService.update(id, dto);
     }
 

@@ -14,8 +14,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/core/guard/role.guard';
 import { BranchService } from './branch.service';
-import { CreateBranchDto } from './dtos/create-branch.dto';
-import { UpdateBranchDto } from './dtos/update-branch.dto';
+import { BranchDto } from './dtos/branch.dto';
 import { Role } from 'src/core/enum/role.enum';
 import { Roles } from 'src/core/decorators/role.decorator';
 
@@ -65,10 +64,10 @@ export class BranchController {
     /**
      * Creates a new branch.
      *
-     * @param {CreateBranchDto} dto - The data transfer object containing the new branch information.
+     * @param {BranchDto} dto - The data transfer object containing the new branch information.
      * @returns {Promise<BranchEntity>} The newly created branch entity.
      */
-    create(@Body() dto: CreateBranchDto) {
+    create(@Body() dto: BranchDto) {
         return this.branchService.create(dto);
     }
 
@@ -79,13 +78,13 @@ export class BranchController {
      * Updates an existing branch.
      *
      * @param {string} id - The id of the branch to update.
-     * @param {UpdateBranchDto} dto - The data transfer object containing the updated branch information.
+     * @param {BranchDto} dto - The data transfer object containing the updated branch information.
      * @returns {Promise<BranchEntity>} The updated branch entity.
      * @throws {NotFoundException} If the branch is not found.
      */
     update(
         @Param('id') id: string,
-        @Body() dto: UpdateBranchDto
+        @Body() dto: BranchDto
     ) {
         return this.branchService.update(id, dto);
     }

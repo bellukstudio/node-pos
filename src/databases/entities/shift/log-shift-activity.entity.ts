@@ -22,13 +22,13 @@ export class ShiftActivityLogEntity {
         type: 'enum',
         enum: ['sale', 'return', 'stock_transfer', 'transaction_cancel', 'other'],
     })
-    activityType: 'sale' | 'return' | 'stock_transfer' | 'transaction_cancel' | 'other';
+    activity_type: 'sale' | 'return' | 'stock_transfer' | 'transaction_cancel' | 'other';
 
     @Column({ type: 'text' })
     description: string;
 
     @Column()
-    activityTime: Date;
+    activity_time: Date;
 
     @Column({ nullable: true })
     deleted_at: Date

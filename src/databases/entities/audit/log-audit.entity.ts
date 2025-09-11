@@ -75,13 +75,13 @@ export class AuditLogEntity {
     description: string;
 
     @Column()
-    activityTime: Date;
+    activity_time: Date;
 
     @Column({ nullable: true })
-    ipAddress: string;
+    ip_address: string;
 
     @Column({ nullable: true, type: 'text' })
-    deviceInfo: string;
+    device_info: string;
 
     @Column({ nullable: true })
     deleted_at: Date

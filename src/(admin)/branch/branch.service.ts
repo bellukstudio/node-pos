@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BranchEntity } from "src/databases/entities/branch/branch.entity";
 import { Repository, ILike } from "typeorm";
-import { CreateBranchDto } from "./dtos/create-branch.dto";
-import { UpdateBranchDto } from "./dtos/update-branch.dto";
+import { BranchDto } from "./dtos/branch.dto";
 
 @Injectable()
 export class BranchService {
@@ -77,10 +76,10 @@ export class BranchService {
     /**
      * Creates a new branch.
      *
-     * @param {CreateBranchDto} dto - The data transfer object containing the new branch information.
+     * @param {BranchDto} dto - The data transfer object containing the new branch information.
      * @returns {Promise<BranchEntity>} The newly created branch entity.
      */
-    async create(dto: CreateBranchDto) {
+    async create(dto: BranchDto) {
         const branch = this.branchRepository.create(dto);
         return this.branchRepository.save(branch);
     }
@@ -89,12 +88,12 @@ export class BranchService {
  * Updates an existing branch with new data.
  *
  * @param {string} id - The ID of the branch to update.
- * @param {UpdateBranchDto} dto - The data transfer object containing updated branch information.
+ * @param {BranchDto} dto - The data transfer object containing updated branch information.
  * @throws {NotFoundException} If the branch with the given ID is not found.
  * @returns {Promise<BranchEntity>} The updated branch entity.
  */
 
-    async update(id: string, dto: UpdateBranchDto) {
+    async update(id: string, dto: BranchDto) {
         const branch = await this.branchRepository.findOne({ where: { id } });
         if (!branch) throw new NotFoundException('Branch not found');
 

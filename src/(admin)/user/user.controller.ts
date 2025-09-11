@@ -4,9 +4,7 @@ import { RolesGuard } from "src/core/guard/role.guard";
 import { UserService } from "./user.service";
 import { Roles } from "src/core/decorators/role.decorator";
 import { Role } from "src/core/enum/role.enum";
-import { CreateUserDto } from "./dtos/create-user.dto";
-import { UpdateUserDto } from "./dtos/update-user.dto";
-
+import { UserDto } from "./dtos/user.dto";
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -58,10 +56,10 @@ export class UserController {
     /**
      * Creates a new user.
      *
-     * @param {CreateUserDto} dto - The data transfer object containing the new user information.
+     * @param {UserDto} dto - The data transfer object containing the new user information.
      * @returns {Promise<UserEntity>} The newly created user entity.
      */
-    create(@Body() dto: CreateUserDto) {
+    create(@Body() dto: UserDto) {
         return this.userService.create(dto);
     }
 
@@ -72,11 +70,11 @@ export class UserController {
      * Updates an existing user.
      *
      * @param {string} id - The id of the user to update.
-     * @param {UpdateUserDto} dto - The data transfer object containing the updated user information.
+     * @param {UserDto} dto - The data transfer object containing the updated user information.
      * @returns {Promise<UserEntity>} The updated user entity.
      * @throws {NotFoundException} If the user is not found.
      */
-    update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    update(@Param('id') id: string, @Body() dto: UserDto) {
         return this.userService.update(id, dto);
     }
     

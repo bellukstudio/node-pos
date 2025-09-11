@@ -7,13 +7,13 @@ export class GeneralSettingEntity {
     id: string;
 
     @Column()
-    storeName: string;
+    store_name: string;
 
     @Column()
     address: string;
 
     @Column()
-    phoneNumber: string;
+    phone_number: string;
 
     @Column()
     email: string;
@@ -25,7 +25,7 @@ export class GeneralSettingEntity {
     tax: number;
 
     @Column()
-    globalDiscount: number;
+    global_discount: number;
     
     @Column({ nullable: true })
     deleted_at: Date

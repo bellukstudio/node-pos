@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { UpdateCustomerDto } from "./dtos/update-customer.dto";
 import { ILike, Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { MemberEntity } from "src/databases/entities/user/member.entity";
-import { CreateCustomerDto } from "./dtos/create-customer.dto";
+import { CustomerDto } from "./dtos/customer.dto";
 
 @Injectable()
 export class CustomerService {
@@ -69,10 +68,10 @@ export class CustomerService {
     /**
      * Creates a new customer.
      * 
-     * @param {CreateCustomerDto} dto - The data transfer object containing the new customer information.
+     * @param {CustomerDto} dto - The data transfer object containing the new customer information.
      * @returns {Promise<MemberEntity>} The newly created customer entity.
      */
-    async create(dto: CreateCustomerDto) {
+    async create(dto: CustomerDto) {
         const member = this.memberRepository.create(dto);
         return this.memberRepository.save(member);
     }
@@ -81,11 +80,11 @@ export class CustomerService {
      * Updates an existing customer.
      * 
      * @param {string} id - The id of the customer to update.
-     * @param {UpdateCustomerDto} dto - The data transfer object containing the updated customer information.
+     * @param {CustomerDto} dto - The data transfer object containing the updated customer information.
      * @returns {Promise<MemberEntity>} The updated customer entity.
      * @throws {NotFoundException} If the customer is not found.
      */
-    async update(id: string, dto: UpdateCustomerDto) {
+    async update(id: string, dto: CustomerDto) {
         const member = await this.memberRepository.findOne({ where: { id } });
 
         if (!member) throw new NotFoundException('Member not found');

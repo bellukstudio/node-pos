@@ -16,13 +16,13 @@ export class PurchaseProductEntity {
     branch: BranchEntity;
 
     @Column()
-    totalPrice: number;
+    total_price: number;
 
     @Column()
-    purchaseDate: Date;
+    purchase_date: Date;
 
     @Column({ type: "enum", enum: ["finished", "pending"] })
-    purchaseStatus: "finished" | "pending";
+    purchase_status: "finished" | "pending";
 
     @Column({ nullable: true })
     deleted_at: Date

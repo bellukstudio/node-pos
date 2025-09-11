@@ -4,8 +4,7 @@ import { RolesGuard } from "src/core/guard/role.guard";
 import { CategoryProductService } from "./categoryProduct.service";
 import { Roles } from "src/core/decorators/role.decorator";
 import { Role } from "src/core/enum/role.enum";
-import { CreateCategoryProductDto } from "./dto/create-category-product.dto";
-import { UpdateCategoryProductDto } from "./dto/update-category-product.dto";
+import { CategoryProductDto } from "./dto/category-product.dto";
 
 
 @Controller('category-product')
@@ -51,7 +50,7 @@ export class CategoryProductController {
      * @returns {Promise<CategoryProductEntity>} The found category product entity.
      * @throws {NotFoundException} If the category product is not found.
      */
-    getById(@Query('id') id: string) {
+    getById(@Param('id') id: string) {
         return this.categoryProductService.getById(id);
     }
 
@@ -61,10 +60,10 @@ export class CategoryProductController {
     /**
      * Creates a new category product.
      *
-     * @param {CreateCategoryProductDto} dto - The data transfer object containing the new category product information.
+     * @param {CategoryProductDto} dto - The data transfer object containing the new category product information.
      * @returns {Promise<CategoryProductEntity>} The newly created category product entity.
      */
-    create(@Body() dto: CreateCategoryProductDto) {
+    create(@Body() dto: CategoryProductDto) {
         return this.categoryProductService.create(dto);
     }
 
@@ -75,11 +74,11 @@ export class CategoryProductController {
      * Updates an existing category product.
      *
      * @param {string} id - The id of the category product to update.
-     * @param {UpdateCategoryProductDto} dto - The data transfer object containing the updated category product information.
+     * @param {CategoryProductDto} dto - The data transfer object containing the updated category product information.
      * @returns {Promise<CategoryProductEntity>} The updated category product entity.
      * @throws {NotFoundException} If the category product is not found.
      */
-    update(@Param('id') id: string, @Body() dto: UpdateCategoryProductDto) {
+    update(@Param('id') id: string, @Body() dto: CategoryProductDto) {
         return this.categoryProductService.update(id, dto);
     }
 

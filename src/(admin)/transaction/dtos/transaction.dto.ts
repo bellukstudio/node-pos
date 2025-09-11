@@ -3,10 +3,10 @@ import { BranchEntity } from "src/databases/entities/branch/branch.entity"
 import { UserEntity } from "src/databases/entities/user/users.entity"
 
 
-export class UpdateTransactionDto {
+export class TransactionDto{
 
     @IsNotEmpty() @IsString()
-    readonly transactionNumber: string
+    readonly transaction_number:string
 
     @IsNotEmpty()
     readonly user: UserEntity
@@ -15,7 +15,7 @@ export class UpdateTransactionDto {
     readonly branch: BranchEntity
 
     @IsNotEmpty() @IsNumber()
-    readonly totalPrice: number
+    readonly total_price: number
 
     @IsNotEmpty() @IsNumber()
     readonly tax: number
@@ -24,14 +24,14 @@ export class UpdateTransactionDto {
     readonly discount: number
 
     @IsNotEmpty() @IsNumber()
-    readonly totalPayment: number
+    readonly total_payment: number
 
     @IsNotEmpty() @IsString()
-    readonly methodPayment: string
+    readonly method_payment: string
 
     @IsNotEmpty()
-    readonly statusPayment: "finished" | "pending" | "canceled"
+    readonly status_payment: "finished" | "pending" | "canceled"
 
     @IsNotEmpty()
-    readonly transactionTime: string
+    readonly transaction_time: string
 }

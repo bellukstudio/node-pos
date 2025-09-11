@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/databases/entities/user/users.entity";
 import { ILike, Repository } from "typeorm";
-import { CreateUserDto } from "./dtos/create-user.dto";
-import { UpdateUserDto } from "./dtos/update-user.dto";
+import { UserDto } from "./dtos/user.dto";
 
 @Injectable()
 export class UserService {
@@ -72,10 +71,10 @@ export class UserService {
     /**
      * Creates a new user.
      *
-     * @param {CreateUserDto} dto - The data transfer object containing the new user information.
+     * @param {UserDto} dto - The data transfer object containing the new user information.
      * @returns {Promise<UserEntity>} The newly created user entity.
      */
-    async create(dto: CreateUserDto){
+    async create(dto: UserDto){
         const user = this.userRepository.create(dto);
         return this.userRepository.save(user);
     }
@@ -84,11 +83,11 @@ export class UserService {
      * Updates an existing user.
      *
      * @param {string} id - The id of the user to update.
-     * @param {UpdateUserDto} dto - The data transfer object containing the updated user information.
+     * @param {UserDto} dto - The data transfer object containing the updated user information.
      * @returns {Promise<UserEntity>} The updated user entity.
      * @throws {NotFoundException} If the user is not found.
      */
-    async update(id: string, dto: UpdateUserDto){
+    async update(id: string, dto: UserDto){
         const user = await this.userRepository.findOneBy({id});
         if(!user) throw new NotFoundException('User not found');
     }
