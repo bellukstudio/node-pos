@@ -13,6 +13,8 @@ import { PurchaseProductModule } from './purchase_product/purchase-product.modul
 import { ReturnGoodsModule } from './return_goods/return-goods.module';
 import { MutationStockModule } from './mutation_stock/mutation-stock.module';
 import { UserModule } from './user/user.module';
+import { ReportModule } from './reports/report.module';
+import { SettingsModule } from './settings/settings.module';
 @Module({
   imports: [
     AuthModule,
@@ -71,6 +73,14 @@ import { UserModule } from './user/user.module';
           {
             path: 'mutation-stock',
             module: MutationStockModule
+          },
+          {
+            path: 'report',
+            module: ReportModule
+          },
+          {
+            path: 'setting',
+            module: SettingsModule
           }
         ],
       },
