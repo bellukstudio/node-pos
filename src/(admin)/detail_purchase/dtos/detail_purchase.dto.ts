@@ -1,20 +1,21 @@
+import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber } from "class-validator";
 import { ProductEntity } from "src/databases/entities/product/product.entity";
 import { PurchaseProductEntity } from "src/databases/entities/supply/purchase-product.entity";
 
-export class DetailPurchaseDto{
-    @IsNotEmpty() 
+export class DetailPurchaseDto {
+    @IsNotEmpty()
     readonly purchase: PurchaseProductEntity
 
-    @IsNotEmpty() 
+    @IsNotEmpty()
     readonly product: ProductEntity
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly amount: number
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly unit_price: number
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly sub_total: number
 }

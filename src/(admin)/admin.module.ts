@@ -15,6 +15,7 @@ import { MutationStockModule } from './mutation_stock/mutation-stock.module';
 import { UserModule } from './user/user.module';
 import { ReportModule } from './reports/report.module';
 import { SettingsModule } from './settings/settings.module';
+import { PromoModule } from './promo/promo.module';
 @Module({
   imports: [
     AuthModule,
@@ -81,6 +82,10 @@ import { SettingsModule } from './settings/settings.module';
           {
             path: 'setting',
             module: SettingsModule
+          },
+          {
+            path: 'promo',
+            module: PromoModule
           }
         ],
       },

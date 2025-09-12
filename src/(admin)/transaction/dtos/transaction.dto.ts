@@ -1,12 +1,13 @@
+import { Type } from "class-transformer"
 import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 import { BranchEntity } from "src/databases/entities/branch/branch.entity"
 import { UserEntity } from "src/databases/entities/user/users.entity"
 
 
-export class TransactionDto{
+export class TransactionDto {
 
     @IsNotEmpty() @IsString()
-    readonly transaction_number:string
+    readonly transaction_number: string
 
     @IsNotEmpty()
     readonly user: UserEntity
@@ -14,16 +15,16 @@ export class TransactionDto{
     @IsNotEmpty()
     readonly branch: BranchEntity
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly total_price: number
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly tax: number
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly discount: number
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly total_payment: number
 
     @IsNotEmpty() @IsString()
