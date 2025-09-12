@@ -11,8 +11,8 @@ export class DiscountNpromoEntity {
     @Column()
     promo_name: string;
 
-    @Column({ type: "enum", enum: ["presentase", "nominal"] })
-    type_promo: "presentase" | "nominal";
+    @Column({ type: "enum", enum: ["percentage", "fixed", "free", "buy", "special"] })
+    type_promo: "percentage" | "fixed" | "free" | "buy" | "special";
 
     @Column({})
     promo_value: string;
@@ -25,7 +25,7 @@ export class DiscountNpromoEntity {
     @JoinColumn({ name: 'product_id' })
     product: ProductEntity;
 
-    @Column()
+    @Column({ nullable: true })
     expired: Date;
 
     @Column()

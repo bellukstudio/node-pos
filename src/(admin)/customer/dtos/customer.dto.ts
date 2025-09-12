@@ -1,8 +1,9 @@
+import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CustomerDto {
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly customer_id: number
 
     @IsNotEmpty() @IsString()
@@ -17,6 +18,6 @@ export class CustomerDto {
     @IsNotEmpty() @IsString()
     readonly address: string
 
-    @IsNotEmpty() @IsNumber()
+    @IsNotEmpty() @Type(() => Number) @IsNumber()
     readonly loyalty_point: number
 }
