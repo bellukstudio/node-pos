@@ -1,10 +1,15 @@
-import { Controller, Query } from "@nestjs/common";
+import { Controller, Delete, Get, HttpCode, HttpStatus, Post, Query, UseGuards } from "@nestjs/common";
 import { ReportService } from "./report.service";
 import { SalesReportDto } from "./dtos/sales-report.dto";
 import { StockReportDto } from "./dtos/stock-report.dto";
 import { FinancialStatementDto } from "./dtos/financial-statement.dto";
+import { RolesGuard } from "src/core/guard/role.guard";
+import { AuthGuard } from "@nestjs/passport";
+import { Role } from "src/core/enum/role.enum";
+import { Roles } from "src/core/decorators/role.decorator";
 
 @Controller()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ReportController {
     /**
      * Constructor for ReportController
@@ -15,6 +20,10 @@ export class ReportController {
         private readonly reportService: ReportService
     ) { }
 
+
+    @Get('sales-reports')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Finds all sales reports.
      * 
@@ -33,6 +42,9 @@ export class ReportController {
         return this.reportService.getSalesReport(queries);
     }
 
+    @Get('stock-reports')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Finds all stock reports.
      * 
@@ -51,6 +63,9 @@ export class ReportController {
         return this.reportService.getStockReport(queries);
     }
 
+    @Get('financial-statements')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Finds all financial statement entities.
      * 
@@ -69,6 +84,9 @@ export class ReportController {
         return this.reportService.getFinancialStatement(queries);
     }
 
+    @Post('sales-reports/create')
+    @HttpCode(HttpStatus.CREATED)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Creates a new sales report.
      * 
@@ -78,6 +96,10 @@ export class ReportController {
     createSalesReport(dto: SalesReportDto) {
         return this.reportService.createSalesReport(dto);
     }
+
+    @Post('stock-reports/create')
+    @HttpCode(HttpStatus.CREATED)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Creates a new stock report.
      * 
@@ -87,6 +109,10 @@ export class ReportController {
     createStockReport(dto: StockReportDto) {
         return this.reportService.createStockReport(dto);
     }
+
+    @Post('financial-statements/create')
+    @HttpCode(HttpStatus.CREATED)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
     /**
      * Creates a new financial statement.
      * 
@@ -97,6 +123,9 @@ export class ReportController {
         return this.reportService.createFinancialStatement(dto);
     }
 
+    @Delete('sales-reports/:id/delete')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager)
     /**
      * Deletes a sales report by id.
      * 
@@ -104,10 +133,13 @@ export class ReportController {
      * @returns {Promise<void>} The deleted sales report entity.
      * @throws {NotFoundException} If the sales report is not found.
      */
-    
     deleteSalesReport(id: string) {
         return this.reportService.deleteSalesReport(id);
     }
+
+    @Delete('stock-reports/:id/delete')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager)
     /**
      * Deletes a stock report by id.
      * 
@@ -118,6 +150,10 @@ export class ReportController {
     deleteStockReport(id: string) {
         return this.reportService.deleteStockReport(id);
     }
+
+    @Delete('financial-statements/:id/delete')
+    @HttpCode(HttpStatus.OK)
+    @Roles(Role.Admin, Role.SuperAdmin, Role.Manager)
     /**
      * Deletes a financial statement by id.
      * 

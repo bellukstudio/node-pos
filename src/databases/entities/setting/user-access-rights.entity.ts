@@ -50,8 +50,8 @@ export class UserAccessRightsEntity {
     )[];
 
 
-    @Column({ type: "enum", enum: ["read", "write", "delete", "edit"] })
-    action: "read" | "write" | "edit" | "delete";
+    @Column({ type: "enum", enum: ["create", "read", "update", "delete"] })
+    action: "create" | "read" | "update" | "delete";
 
     @Column({ nullable: true })
     deleted_at: Date
