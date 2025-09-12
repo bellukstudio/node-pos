@@ -24,10 +24,10 @@ export class ShiftEntity {
     cashier: UserEntity;
 
     @Column()
-    time_in: Date;
+    time_in: string;
 
     @Column({ nullable: true })
-    time_out: Date;
+    time_out: string;
 
     @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
     total_sales: number;
