@@ -16,13 +16,19 @@ import { UserEntity } from 'src/databases/entities/user/users.entity';
             useFactory: (config: ConfigService) => ({
                 secret: config.getOrThrow('JWT_SECRET'),
                 signOptions: { expiresIn: config.getOrThrow('JWT_EXPIRATION') },
-            })
+            }),
         }),
-        TypeOrmModule.forFeature([UserEntity])
+        TypeOrmModule.forFeature([UserEntity]),
     ],
     controllers: [AuthController],
-    providers: [AuthService, PassportModule],
-    exports: [JwtStrategy, PassportModule]
+    providers: [
+        AuthService,
+        JwtStrategy,
+    ],
+    exports: [
+        AuthService,
+        JwtStrategy,
+        PassportModule,
+    ],
 })
-export class AuthModule {
-}
+export class AuthModule { }

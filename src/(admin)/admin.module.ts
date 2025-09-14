@@ -16,81 +16,54 @@ import { UserModule } from './user/user.module';
 import { ReportModule } from './reports/report.module';
 import { SettingsModule } from './settings/settings.module';
 import { PromoModule } from './promo/promo.module';
+import { ShiftModule } from './shift/shift.module';
+import { AuditLogModule } from './audit/audit.module';
 @Module({
   imports: [
     AuthModule,
+    BranchModule,
+    CategoryProductModule,
+    ProductModule,
+    TransactionModule,
+    TransactionDetailModule,
+    CustomerModule,
+    SupplierModule,
+    DetailPurchaseModule,
+    PurchaseProductModule,
+    ReturnGoodsModule,
+    MutationStockModule,
+    UserModule,
+    ReportModule,
+    SettingsModule,
+    PromoModule,
+    ShiftModule,
+    AuditLogModule,
+
     RouterModule.register([
       {
-        path: "admin",
+        path: 'admin',
         children: [
-          {
-            path: "auth",
-            module: AuthModule,
-          },
-          {
-            path: "branch",
-            module: BranchModule
-          },
-          {
-            path: 'user',
-            module: UserModule
-          },
-          {
-            path: "category-product",
-            module: CategoryProductModule
-          },
-          {
-            path: "product",
-            module: ProductModule
-          },
-          {
-            path: "transaction",
-            module: TransactionModule
-          },
-          {
-            path: "transaction-detail",
-            module: TransactionDetailModule
-          },
-          {
-            path: 'customer',
-            module: CustomerModule
-          },
-          {
-            path: 'supplier',
-            module: SupplierModule
-          },
-          {
-            path: 'purchase-product',
-            module: PurchaseProductModule
-          },
-          {
-            path: 'detail-purchase',
-            module: DetailPurchaseModule
-          },
-          {
-            path: 'return-of-goods',
-            module: ReturnGoodsModule
-          },
-          {
-            path: 'mutation-stock',
-            module: MutationStockModule
-          },
-          {
-            path: 'report',
-            module: ReportModule
-          },
-          {
-            path: 'setting',
-            module: SettingsModule
-          },
-          {
-            path: 'promo',
-            module: PromoModule
-          }
+          { path: 'auth', module: AuthModule },
+          { path: 'branch', module: BranchModule },
+          { path: 'user', module: UserModule },
+          { path: 'category-product', module: CategoryProductModule },
+          { path: 'product', module: ProductModule },
+          { path: 'transaction', module: TransactionModule },
+          { path: 'transaction-detail', module: TransactionDetailModule },
+          { path: 'customer', module: CustomerModule },
+          { path: 'supplier', module: SupplierModule },
+          { path: 'purchase-product', module: PurchaseProductModule },
+          { path: 'detail-purchase', module: DetailPurchaseModule },
+          { path: 'return-of-goods', module: ReturnGoodsModule },
+          { path: 'mutation-stock', module: MutationStockModule },
+          { path: 'report', module: ReportModule },
+          { path: 'setting', module: SettingsModule },
+          { path: 'promo', module: PromoModule },
+          { path: 'shift', module: ShiftModule },
+          { path: 'audit', module: AuditLogModule },
         ],
       },
     ]),
   ],
-
 })
 export class AdminModule { }

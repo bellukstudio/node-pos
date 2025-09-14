@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
+import * as cookieParser from 'cookie-parser';
 import { doubleCsrf } from 'csrf-csrf';
 import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';
@@ -31,7 +31,7 @@ async function bootstrap() {
 
   // CSRF protection configuration
   const doubleCsrfOptions = {
-    getSecret: () => process.env.CSRF_SECRET || 'default_csrf_secret', // Use environment variable for secret
+    getSecret: () => process.env.CSRF_SECRET || 'default_csrf_secret',
     cookieName: '__Host-csrf-token',
     size: 64,
     getTokenFromRequest: (req: any) =>
@@ -39,11 +39,19 @@ async function bootstrap() {
   };
 
   const { doubleCsrfProtection } = doubleCsrf(doubleCsrfOptions);
-  // SWAGGER
+
+  // SWAGGER - Setup sebelum CSRF protection
   const configService = app.get(ConfigService);
   await registerSwaggerModule(app, configService);
-  // Apply CSRF protection middleware
-  app.use(doubleCsrfProtection);
+
+  // Apply CSRF protection middleware SETELAH swagger setup
+  // dan exclude swagger routes dari CSRF protection
+  app.use((req: any, res: any, next: any) => {
+    if (req.originalUrl && (req.originalUrl.startsWith('/swagger') || req.originalUrl.startsWith('/api/swagger'))) {
+      return next();
+    }
+    return doubleCsrfProtection(req, res, next);
+  });
 
   // Enable global request validation
   app.useGlobalPipes(new ValidationPipe());
