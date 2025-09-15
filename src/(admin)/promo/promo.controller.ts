@@ -9,7 +9,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiBody, ApiBea
 
 @ApiTags('Promo')
 @ApiBearerAuth()
-@Controller('promo')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class PromoController {
     constructor(

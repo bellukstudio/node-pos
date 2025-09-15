@@ -30,7 +30,7 @@ import {
 
 @ApiTags("Reports")
 @ApiBearerAuth()
-@Controller("reports")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class ReportController {
     constructor(private readonly reportService: ReportService) { }

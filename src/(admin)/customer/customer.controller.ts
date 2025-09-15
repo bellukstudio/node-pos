@@ -30,7 +30,7 @@ import { MemberEntity } from "src/databases/entities/user/member.entity";
 
 @ApiTags("Customers")
 @ApiBearerAuth()
-@Controller("customers")
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class CustomerController {
     constructor(

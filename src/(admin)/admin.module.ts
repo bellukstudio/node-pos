@@ -43,7 +43,6 @@ import { AuditLogModule } from './audit/audit.module';
       {
         path: 'admin',
         children: [
-          { path: 'auth', module: AuthModule },
           { path: 'branch', module: BranchModule },
           { path: 'user', module: UserModule },
           { path: 'category-product', module: CategoryProductModule },

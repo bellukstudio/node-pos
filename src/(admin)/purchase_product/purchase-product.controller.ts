@@ -15,7 +15,7 @@ import {
 
 @ApiTags('Purchase Products')
 @ApiBearerAuth()
-@Controller('purchase-products')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class PurchaseProductController {
     constructor(

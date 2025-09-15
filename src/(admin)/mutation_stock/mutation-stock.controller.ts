@@ -12,7 +12,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiBearerAuth }
 
 @ApiTags('Mutation Stock')
 @ApiBearerAuth()
-@Controller('mutation-stock')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class MutationStockController {
     constructor(

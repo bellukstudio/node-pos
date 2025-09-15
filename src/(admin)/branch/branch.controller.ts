@@ -30,7 +30,7 @@ import { BranchEntity } from 'src/databases/entities/branch/branch.entity';
 
 @ApiTags('Branches')
 @ApiBearerAuth()
-@Controller('branches')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class BranchController {
     constructor(private readonly branchService: BranchService) {}

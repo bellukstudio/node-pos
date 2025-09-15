@@ -21,7 +21,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } 
 
 @ApiTags("Settings")
 @ApiBearerAuth()
-@Controller("settings")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class SettingController {
     constructor(private readonly settingService: SettingsService) { }

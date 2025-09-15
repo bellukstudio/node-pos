@@ -11,7 +11,7 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags, 
 
 @ApiTags("Supplier Management")
 @ApiBearerAuth()
-@Controller("suppliers")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class SupplierController {
     constructor(private readonly supplierService: SupplierService) { }

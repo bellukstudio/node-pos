@@ -6,7 +6,7 @@ import { RegisterDto } from "./dtos/register.dto";
 import { UserEntity } from "src/databases/entities/user/users.entity";
 
 @ApiTags("Auth")
-@Controller("auth")
+@Controller()
 export class AuthController {
     constructor(
         private readonly authService: AuthService

@@ -30,7 +30,7 @@ import { CategoryProductEntity } from "src/databases/entities/product/category-p
 
 @ApiTags("Category Products")
 @ApiBearerAuth()
-@Controller("category-products")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class CategoryProductController {
     constructor(

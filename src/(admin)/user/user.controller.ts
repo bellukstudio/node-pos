@@ -13,7 +13,7 @@ import {
 
 @ApiTags("Users")
 @ApiBearerAuth()
-@Controller("users")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class UserController {
     constructor(private readonly userService: UserService) { }

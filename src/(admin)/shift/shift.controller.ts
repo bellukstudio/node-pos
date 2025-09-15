@@ -33,11 +33,12 @@ export class ShiftController {
      * @property {number} per_page - The number of items per page. Defaults to 10.
      * @property {string} search - The search keyword to filter by. Optional.
      * @returns {Promise<{data: ShiftEntity[], total: number, page: number, per_page: number, total_pages: number}>} The retrieved shifts with pagination and filter functionality.
+    **/
     getAll(@Query() queries: any) {
         return this.shiftService.getAll(queries);
     }
 
-    @Get("shift/:id")
+    @Get(":id")
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
     @ApiOperation({ summary: "Get a shift by ID" })
@@ -54,7 +55,7 @@ export class ShiftController {
         return this.shiftService.getById(id);
     }
 
-    @Post("shift/open")
+    @Post("open")
     @HttpCode(HttpStatus.CREATED)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Cashier)
     @ApiOperation({ summary: "Open a new shift" })
@@ -70,7 +71,7 @@ export class ShiftController {
         return this.shiftService.openShift(dto);
     }
 
-    @Put("shift/close/:id")
+    @Put("close/:id")
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Cashier)
     @ApiOperation({ summary: "Close a shift" })

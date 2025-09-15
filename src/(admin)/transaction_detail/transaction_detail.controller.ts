@@ -13,7 +13,7 @@ import {
 
 @ApiTags("Transaction Details")
 @ApiBearerAuth()
-@Controller("transaction-details")
+@Controller()
 @UseGuards(AuthGuard("jwt"), RolesGuard)
 export class TransactionDetailController {
     /**

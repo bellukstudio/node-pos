@@ -29,7 +29,7 @@ import {
 
 @ApiTags('Return Goods')
 @ApiBearerAuth()
-@Controller('return-goods')
+@Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ReturnGoodsController {
     constructor(
