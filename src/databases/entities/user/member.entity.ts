@@ -2,33 +2,33 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity("members")
 export class MemberEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-    
-    @Column()
-    customer_id: number
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  customer_id: number
 
-    @Column({ unique: true, nullable: true })
-    email: string;
+  @Column()
+  name: string;
 
-    @Column({ nullable: true })
-    phone_number: string;
+  @Column({ unique: true, nullable: true })
+  email: string;
 
-    @Column({ nullable: true })
-    address: string;
+  @Column({ nullable: true })
+  phone_number: string;
 
-    @Column({ nullable: true })
-    loyalty_point: number;
+  @Column({ nullable: true })
+  address: string;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column({ nullable: true })
+  loyalty_point: number;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

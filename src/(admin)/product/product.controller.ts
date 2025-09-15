@@ -1,12 +1,18 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { 
+    Body, Controller, Delete, Get, HttpCode, HttpStatus, 
+    Param, Post, Put, Query, UseGuards 
+} from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ProductService } from "./product.service";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
 import { ProductDto } from "./dtos/product.dto";
 import { RolesGuard } from "src/core/guard/role.guard";
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBearerAuth } from "@nestjs/swagger";
 
-@Controller()
+@ApiTags('Products')
+@ApiBearerAuth()
+@Controller('products')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ProductController {
 
@@ -22,6 +28,11 @@ export class ProductController {
     @Get()
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
+    @ApiOperation({ summary: 'Retrieve all products with pagination & search' })
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number, defaults to 1' })
+    @ApiQuery({ name: 'per_page', required: false, type: Number, description: 'Items per page, defaults to 10' })
+    @ApiQuery({ name: 'search', required: false, type: String, description: 'Search by product name' })
+    @ApiResponse({ status: 200, description: 'Successfully retrieved products list' })
     /**
      * Finds all product entities.
      * 
@@ -43,6 +54,10 @@ export class ProductController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
+    @ApiOperation({ summary: 'Retrieve a single product by ID' })
+    @ApiParam({ name: 'id', type: String, description: 'Product ID' })
+    @ApiResponse({ status: 200, description: 'Product found' })
+    @ApiResponse({ status: 404, description: 'Product not found' })
     /**
      * Finds a product by id.
      * 
@@ -57,6 +72,9 @@ export class ProductController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Create a new product' })
+    @ApiResponse({ status: 201, description: 'Product successfully created' })
+    @ApiResponse({ status: 400, description: 'Validation error' })
     /**
      * Creates a new product.
      * 
@@ -67,10 +85,13 @@ export class ProductController {
         return this.productService.create(dto);
     }
 
-
     @Put(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Update a product by ID' })
+    @ApiParam({ name: 'id', type: String, description: 'Product ID' })
+    @ApiResponse({ status: 200, description: 'Product successfully updated' })
+    @ApiResponse({ status: 404, description: 'Product not found' })
     /**
      * Updates an existing product.
      * 
@@ -86,6 +107,10 @@ export class ProductController {
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Delete a product by ID' })
+    @ApiParam({ name: 'id', type: String, description: 'Product ID' })
+    @ApiResponse({ status: 200, description: 'Product successfully deleted' })
+    @ApiResponse({ status: 404, description: 'Product not found' })
     /**
      * Deletes a product by id.
      * 

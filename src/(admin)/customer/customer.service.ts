@@ -100,9 +100,9 @@ export class CustomerService {
      * @throws {NotFoundException} If the customer is not found.
      */
     async delete(id: string) {
-        const member = await this.memberRepository.findOne({ where: { id } });
+        const member = await this.memberRepository.softDelete(id);
 
         if (!member) throw new NotFoundException('Member not found');
-        return this.memberRepository.remove(member);
+        return { message: 'Member deleted successfully' };
     }
 }

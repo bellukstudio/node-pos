@@ -3,21 +3,21 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity("payment_method")
 export class PaymentMethodEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column({ default: false })
-    status: boolean;
+  @Column({ default: false })
+  status: boolean;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

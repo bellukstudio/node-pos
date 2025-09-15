@@ -106,9 +106,9 @@ export class LoyaltyService {
      * @throws {NotFoundException} If the points loyalty record is not found.
      */
     async delete(id: string) {
-        const point = await this.pointsLoyaltyRepository.findOneBy({ id: id });
+        const point = await this.pointsLoyaltyRepository.softDelete(id);
         if (!point) throw new NotFoundException('Point not found');
-        return await this.pointsLoyaltyRepository.remove(point);
+        return { message: 'Point deleted successfully' };
     }
 
 }

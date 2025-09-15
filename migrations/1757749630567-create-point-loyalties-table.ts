@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreatePointLoyaltiesTable1757749630567 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -41,16 +41,19 @@ export class CreatePointLoyaltiesTable1757749630567 implements MigrationInterfac
                         isNullable: true,
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["member_id"],
-                        referencedTableName: "member",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                ],
+
             }),
             true
+        );
+
+        await queryRunner.createForeignKey(
+            "point_loyalty",
+            new TableForeignKey({
+                columnNames: ["member_id"],
+                referencedTableName: "members",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
         );
     }
 

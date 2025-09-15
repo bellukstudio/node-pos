@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateLogAuditsTable1757749717318 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -81,22 +81,29 @@ export class CreateLogAuditsTable1757749717318 implements MigrationInterface {
                         isNullable: true,
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["user_id"],
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
-                        onDelete: "SET NULL",
-                    },
-                    {
-                        columnNames: ["branch_id"],
-                        referencedTableName: "branches",
-                        referencedColumnNames: ["id"],
-                        onDelete: "SET NULL",
-                    },
-                ],
+
             }),
             true
+        );
+
+        await queryRunner.createForeignKey(
+            "audit_logs",
+            new TableForeignKey({
+                columnNames: ["branch_id"],
+                referencedTableName: "branchs",
+                referencedColumnNames: ["id"],
+                onDelete: "NULL",
+            })
+        );
+
+        await queryRunner.createForeignKey(
+            "audit_logs",
+            new TableForeignKey({
+                columnNames: ["user_id"],
+                referencedTableName: "users",
+                referencedColumnNames: ["id"],
+                onDelete: "NULL",
+            })
         );
     }
 

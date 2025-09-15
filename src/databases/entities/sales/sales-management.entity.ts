@@ -4,49 +4,49 @@ import { BranchEntity } from "../branch/branch.entity";
 
 @Entity("sales_managements")
 export class SalesManagementEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    transaction_number: string
+  @Column()
+  transaction_number: string
 
-    @ManyToOne(() => UserEntity)
-    @JoinColumn({ name: 'cashier_id' })
-    user: UserEntity;
-
-
-    @ManyToOne(() => BranchEntity)
-    @JoinColumn({ name: 'branch_id' })
-    branch: BranchEntity;
-
-    @Column()
-    total_price: number;
-
-    @Column({ nullable: true })
-    tax: number;
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'cashier_id' })
+  user: UserEntity;
 
 
-    @Column({ nullable: true })
-    discount: number;
+  @ManyToOne(() => BranchEntity)
+  @JoinColumn({ name: 'branch_id' })
+  branch: BranchEntity;
 
-    @Column()
-    total_payment: number;
+  @Column()
+  total_price: number;
 
-    @Column()
-    method_payment: string;
+  @Column({ nullable: true })
+  tax: number;
 
-    @Column({ type: "enum", enum: ["finished", "pending", "canceled"] })
-    status_payment: "finished" | "pending" | "canceled";
 
-    @Column()
-    transaction_time: string;
+  @Column({ nullable: true })
+  discount: number;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column()
+  total_payment: number;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @Column()
+  method_payment: string;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @Column({ type: "enum", enum: ["finished", "pending", "canceled"] })
+  status_payment: "finished" | "pending" | "canceled";
+
+  @Column()
+  transaction_time: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

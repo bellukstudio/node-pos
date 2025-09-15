@@ -114,9 +114,9 @@ export class CategoryProductService {
      */
     async delete(id: string) {
 
-        const category = await this.categoryProductRepository.findOne({ where: { id } });
+        const category = await this.categoryProductRepository.softDelete(id);
         if (!category) throw new NotFoundException('Category not found');
 
-        return this.categoryProductRepository.remove(category);
+        return { message: 'Category deleted successfully' };
     }
 }

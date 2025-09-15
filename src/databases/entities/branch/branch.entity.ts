@@ -2,33 +2,33 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity('branchs')
 export class BranchEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    address: string;
+  @Column()
+  address: string;
 
-    @Column()
-    city: string;
+  @Column()
+  city: string;
 
-    @Column()
-    province: string;
+  @Column()
+  province: string;
 
-    @Column()
-    phone_number: string;
+  @Column()
+  phone_number: string;
 
-    @Column({ default: false })
-    status: boolean;
+  @Column({ default: false })
+  status: boolean;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

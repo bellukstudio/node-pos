@@ -1,22 +1,37 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Type } from "class-transformer";
 
 export class GeneralSettingDto {
-    @IsNotEmpty() @IsString()
+    @ApiProperty({ description: "Nama toko yang akan ditampilkan", example: "Toko Sejahtera" })
+    @IsNotEmpty()
+    @IsString()
     readonly store_name: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({ description: "Alamat lengkap toko", example: "Jl. Raya No. 123, Jakarta" })
+    @IsNotEmpty()
+    @IsString()
     readonly address: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({ description: "Nomor telepon toko", example: "081234567890" })
+    @IsNotEmpty()
+    @IsString()
     readonly phone_number: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({ description: "Email resmi toko", example: "admin@tokosejahtera.com" })
+    @IsNotEmpty()
+    @IsString()
     readonly email: string;
 
-    @IsNotEmpty() @Type(() => Number) @IsNumber()
+    @ApiProperty({ description: "Persentase pajak global (dalam %)", example: 10 })
+    @IsNotEmpty()
+    @Type(() => Number)
+    @IsNumber()
     readonly tax: number;
 
-    @IsNotEmpty() @Type(() => Number) @IsNumber()
+    @ApiProperty({ description: "Diskon global default (dalam %)", example: 5 })
+    @IsNotEmpty()
+    @Type(() => Number)
+    @IsNumber()
     readonly global_discount: number;
 }

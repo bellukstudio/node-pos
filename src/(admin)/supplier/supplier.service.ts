@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { SupplyManagementEntity } from "src/databases/entities/supply/supply-management.entity";
 import { ILike, Repository } from "typeorm";
-import { SupplierDto } from "./dtos/supplier.dto";
+import { SupplyManagementDto } from "./dtos/supply-management.dto";
 
 @Injectable()
 export class SupplierService {
@@ -74,10 +74,10 @@ export class SupplierService {
     /**
      * Creates a new supplier management entity.
      * 
-     * @param {SupplierDto} dto - The data transfer object containing the new supplier management information.
+     * @param {SupplyManagementDto} dto - The data transfer object containing the new supplier management information.
      * @returns {Promise<SupplierManagementEntity>} The newly created supplier management entity.
      */
-    async create(dto: SupplierDto) {
+    async create(dto: SupplyManagementDto) {
         const supplier = this.supplierRepository.create(dto);
         return this.supplierRepository.save(supplier);
     }
@@ -85,11 +85,11 @@ export class SupplierService {
      * Updates an existing supplier management entity.
      *
      * @param {string} id - The id of the supplier management to update.
-     * @param {SupplierDto} dto - The data transfer object containing the updated supplier management information.
+     * @param {SupplyManagementDto} dto - The data transfer object containing the updated supplier management information.
      * @returns {Promise<SupplierManagementEntity>} The updated supplier management entity.
      * @throws {NotFoundException} If the supplier management is not found.
      */
-    async update(id: string, dto: SupplierDto) {
+    async update(id: string, dto: SupplyManagementDto) {
         const supplier = await this.supplierRepository.findOneBy({ id });
         if (!supplier) throw new NotFoundException('Supplier not found');
         const updated = Object.assign(supplier, dto);
@@ -103,8 +103,8 @@ export class SupplierService {
      * @throws {NotFoundException} If the supplier management is not found.
      */
     async delete(id: string) {
-        const supplier = await this.supplierRepository.findOneBy({ id });
+        const supplier = await this.supplierRepository.softDelete(id);
         if (!supplier) throw new NotFoundException('Supplier not found');
-        return this.supplierRepository.remove(supplier);
+        return { message: 'Supplier deleted successfully' };
     }
 }

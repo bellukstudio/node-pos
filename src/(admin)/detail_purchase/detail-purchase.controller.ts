@@ -5,17 +5,25 @@ import { Role } from "src/core/enum/role.enum";
 import { DetailPurchaseDto } from "./dtos/detail_purchase.dto";
 import { RolesGuard } from "src/core/guard/role.guard";
 import { AuthGuard } from "@nestjs/passport";
+import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam } from "@nestjs/swagger";
 
+@ApiBearerAuth() // JWT token authentication
+@ApiTags('Detail Purchase') // Group name di Swagger UI
 @Controller()
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class DetailPurchaseController {
     constructor(
         private readonly detailPurchaseService: DetailPurchaseService
-    ) { }
+    ) {}
 
     @Get()
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
+    @ApiOperation({ summary: 'Get all detail purchases' })
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)' })
+    @ApiQuery({ name: 'per_page', required: false, type: Number, description: 'Items per page (default: 10)' })
+    @ApiQuery({ name: 'search', required: false, type: String, description: 'Search keyword for purchase/product name' })
+    @ApiResponse({ status: 200, description: 'List of detail purchases successfully retrieved.' })
     /**
      * Finds all detail purchase entities.
      * 
@@ -30,7 +38,6 @@ export class DetailPurchaseController {
      *   - per_page: The number of items per page.
      *   - total_pages: The total number of pages.
      */
-
     getAll(@Query() queries: any) {
         return this.detailPurchaseService.getAll(queries);
     }
@@ -38,6 +45,10 @@ export class DetailPurchaseController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
+    @ApiOperation({ summary: 'Get detail purchase by ID' })
+    @ApiParam({ name: 'id', type: String, description: 'Detail purchase ID' })
+    @ApiResponse({ status: 200, description: 'Detail purchase retrieved successfully.' })
+    @ApiResponse({ status: 404, description: 'Detail purchase not found.' })
     /**
      * Finds a detail purchase by id.
      *
@@ -52,6 +63,8 @@ export class DetailPurchaseController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Create a new detail purchase' })
+    @ApiResponse({ status: 201, description: 'Detail purchase created successfully.' })
     /**
      * Creates a new detail purchase.
      * 
@@ -65,6 +78,10 @@ export class DetailPurchaseController {
     @Put(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Update an existing detail purchase' })
+    @ApiParam({ name: 'id', type: String, description: 'Detail purchase ID' })
+    @ApiResponse({ status: 200, description: 'Detail purchase updated successfully.' })
+    @ApiResponse({ status: 404, description: 'Detail purchase not found.' })
     /**
      * Updates an existing detail purchase.
      * 
@@ -80,6 +97,10 @@ export class DetailPurchaseController {
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Delete a detail purchase by ID (soft delete if supported)' })
+    @ApiParam({ name: 'id', type: String, description: 'Detail purchase ID' })
+    @ApiResponse({ status: 200, description: 'Detail purchase deleted successfully.' })
+    @ApiResponse({ status: 404, description: 'Detail purchase not found.' })
     /**
      * Deletes a detail purchase by id.
      * 

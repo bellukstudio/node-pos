@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateUserAccessRightsTable1757749586493 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -51,22 +51,29 @@ export class CreateUserAccessRightsTable1757749586493 implements MigrationInterf
                         isNullable: true,
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["user_id"],
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                    {
-                        columnNames: ["branch_id"],
-                        referencedTableName: "branchs",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                ],
+
             }),
             true
+        );
+
+        await queryRunner.createForeignKey(
+            "user_access_rights",
+            new TableForeignKey({
+                columnNames: ["user_id"],
+                referencedTableName: "users",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
+        );
+
+        await queryRunner.createForeignKey(
+            "user_access_rights",
+            new TableForeignKey({
+                columnNames: ["branch_id"],
+                referencedTableName: "branchs",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
         );
     }
 

@@ -95,8 +95,8 @@ export class PromoService {
      * @throws {NotFoundException} If the promo is not found.
      */
     async delete(id: string) {
-        const promo = await this.discountRepo.findOne({ where: { id: id } });
+        const promo = await this.discountRepo.softDelete(id);
         if (!promo) throw new NotFoundException('Promo not found');
-        return await this.discountRepo.remove(promo);
+        return { message: 'Promo deleted successfully' };
     }
 }

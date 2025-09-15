@@ -1,19 +1,37 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Param,
+    Post,
+    Put,
+    Query,
+    UseGuards,
+} from "@nestjs/common";
 import { ReturnOfGoodsService } from "./return-goods.service";
 import { ReturnGoodsDto } from "./dtos/return-goods.dto";
 import { Role } from "src/core/enum/role.enum";
 import { Roles } from "src/core/decorators/role.decorator";
 import { RolesGuard } from "src/core/guard/role.guard";
 import { AuthGuard } from "@nestjs/passport";
+import {
+    ApiTags,
+    ApiOperation,
+    ApiResponse,
+    ApiQuery,
+    ApiParam,
+    ApiBody,
+    ApiBearerAuth,
+} from "@nestjs/swagger";
 
-@Controller()
+@ApiTags('Return Goods')
+@ApiBearerAuth()
+@Controller('return-goods')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class ReturnGoodsController {
-
-    /**
-     * Injects the return of goods service.
-     * @param returnOfGoodsService - The return of goods service.
-     */
     constructor(
         private readonly returnOfGoodsService: ReturnOfGoodsService
     ) { }
@@ -21,19 +39,15 @@ export class ReturnGoodsController {
     @Get()
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
+    @ApiOperation({ summary: 'Get all return goods', description: 'Retrieve a paginated list of return goods with optional search filters.' })
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)' })
+    @ApiQuery({ name: 'per_page', required: false, type: Number, description: 'Items per page (default: 10)' })
+    @ApiQuery({ name: 'search', required: false, type: String, description: 'Search keyword for filtering by product, supplier, etc.' })
+    @ApiResponse({ status: 200, description: 'Successfully retrieved list of return goods.' })
     /**
-     * Finds all return of goods entities.
-     * 
-     * @param queries - An object with the following properties:
-     *   - page: The page number to retrieve. Defaults to 1.
-     *   - per_page: The number of items per page. Defaults to 10.
-     *   - search: A search query to filter the return of goods by. Can be used to search for the product name.
-     * @returns An object with the following properties:
-     *   - data: An array of ReturnOfGoodsEntity objects.
-     *   - total: The total number of return of goods.
-     *   - page: The current page number.
-     *   - per_page: The number of items per page.
-     *   - total_pages: The total number of pages.
+     * Retrieves a paginated list of return goods with optional search filters.
+     * @param {any} queries - The query object containing the page, per_page, and search parameters.
+     * @returns {Promise<{data: ReturnOfGoodsEntity[], total: number, page: number, per_page: number, total_pages: number}>} The retrieved return goods with pagination and search functionality.
      */
     getAll(@Query() queries: any) {
         return this.returnOfGoodsService.getAll(queries);
@@ -42,11 +56,14 @@ export class ReturnGoodsController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor)
+    @ApiOperation({ summary: 'Get return good by ID', description: 'Retrieve a single return good record by its unique ID.' })
+    @ApiParam({ name: 'id', type: String, description: 'Return goods ID' })
+    @ApiResponse({ status: 200, description: 'Return good found and returned.' })
+    @ApiResponse({ status: 404, description: 'Return good not found.' })
     /**
-     * Finds a return of goods by id.
-     * 
-     * @param {string} id - The id of the return of goods to find.
-     * @returns {Promise<ReturnOfGoodsEntity>} The return of goods entity if found, otherwise a NotFoundException is thrown.
+     * Retrieves a return good by its ID.
+     * @throws {NotFoundException} If the return good is not found.
+     * @returns {Promise<ReturnOfGoodsEntity>} The found return good entity.
      */
     getById(@Param('id') id: string) {
         return this.returnOfGoodsService.getById(id);
@@ -55,20 +72,26 @@ export class ReturnGoodsController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Create return good', description: 'Create a new return good record.' })
+    @ApiBody({ type: ReturnGoodsDto })
+    @ApiResponse({ status: 201, description: 'Return good successfully created.' })
     /**
-     * Creates a new return of goods.
-     * 
-     * @param {ReturnGoodsDto} dto - The data transfer object containing the new return of goods information.
+     * Create a new return good record.
+     * @param {ReturnGoodsDto} dto - The data transfer object containing the new return good information.
      * @returns {Promise<ReturnOfGoodsEntity>} The newly created return of goods entity.
      */
     create(@Body() dto: ReturnGoodsDto) {
         return this.returnOfGoodsService.create(dto);
     }
 
-
     @Put(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Update return good', description: 'Update an existing return good by ID.' })
+    @ApiParam({ name: 'id', type: String, description: 'Return goods ID' })
+    @ApiBody({ type: ReturnGoodsDto })
+    @ApiResponse({ status: 200, description: 'Return good successfully updated.' })
+    @ApiResponse({ status: 404, description: 'Return good not found.' })
     /**
      * Updates an existing return of goods.
      * 
@@ -84,14 +107,16 @@ export class ReturnGoodsController {
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin)
+    @ApiOperation({ summary: 'Delete return good', description: 'Soft-delete a return good record by ID.' })
+    @ApiParam({ name: 'id', type: String, description: 'Return goods ID' })
+    @ApiResponse({ status: 200, description: 'Return good successfully deleted.' })
+    @ApiResponse({ status: 404, description: 'Return good not found.' })
     /**
-     * Deletes a return of goods by id.
-     * 
-     * @param {string} id - The id of the return of goods to delete.
-     * @returns {Promise<void>} The result of the deletion operation.
-     * @throws {NotFoundException} If the return of goods is not found.
+     * Soft-deletes a return good record by ID.
+     * @param id - The unique ID of the return good to delete.
+     * @returns The deleted return good entity, or a NotFoundException if the return good is not found.
      */
-    delete(@Param('id') id: string) {
+    remove(@Param('id') id: string) {
         return this.returnOfGoodsService.delete(id);
     }
 }

@@ -106,8 +106,8 @@ export class DetailPurchaseService{
      * @throws {NotFoundException} If the detail purchase is not found.
      */
     async delete(id: string) {
-        const detailPurchase = await this.detailPurchaseRepository.findOne({ where: { id } });
+        const detailPurchase = await this.detailPurchaseRepository.softDelete(id);
         if (!detailPurchase) throw new NotFoundException('Detail purchase not found');
-        return this.detailPurchaseRepository.remove(detailPurchase);
+        return { message: 'Detail purchase deleted successfully' };
     }
 }

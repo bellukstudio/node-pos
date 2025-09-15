@@ -108,8 +108,8 @@ export class ProductService {
         */
     async delete(id: string) {
 
-        const product = await this.productRepository.findOne({ where: { id } });
+        const product = await this.productRepository.softDelete(id);
         if (!product) throw new NotFoundException('Product not found');
-        return this.productRepository.remove(product);
+        return { message: 'Product deleted successfully' };
     }
 }

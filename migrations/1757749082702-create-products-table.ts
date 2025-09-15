@@ -69,12 +69,12 @@ export class CreateProductsTable1757749082702 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: "categoryId",
+                        name: "category_id",
                         type: "uuid",
                         isNullable: false,
                     },
                     {
-                        name: "branchId",
+                        name: "branch_id",
                         type: "uuid",
                         isNullable: true,
                     },
@@ -102,7 +102,7 @@ export class CreateProductsTable1757749082702 implements MigrationInterface {
         await queryRunner.createForeignKey(
             "products",
             new TableForeignKey({
-                columnNames: ["categoryId"],
+                columnNames: ["category_id"],
                 referencedColumnNames: ["id"],
                 referencedTableName: "category_products",
                 onDelete: "CASCADE",
@@ -112,7 +112,7 @@ export class CreateProductsTable1757749082702 implements MigrationInterface {
         await queryRunner.createForeignKey(
             "products",
             new TableForeignKey({
-                columnNames: ["branchId"],
+                columnNames: ["branch_id"],
                 referencedColumnNames: ["id"],
                 referencedTableName: "branchs",
                 onDelete: "SET NULL",
@@ -123,8 +123,8 @@ export class CreateProductsTable1757749082702 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         const table = await queryRunner.getTable("products");
         if (table) {
-            const categoryFk = table.foreignKeys.find(fk => fk.columnNames.includes("categoryId"));
-            const branchFk = table.foreignKeys.find(fk => fk.columnNames.includes("branchId"));
+            const categoryFk = table.foreignKeys.find(fk => fk.columnNames.includes("category_id"));
+            const branchFk = table.foreignKeys.find(fk => fk.columnNames.includes("branch_id"));
             if (categoryFk) await queryRunner.dropForeignKey("products", categoryFk);
             if (branchFk) await queryRunner.dropForeignKey("products", branchFk);
         }

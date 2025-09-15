@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { SalesDetailEntity } from "src/databases/entities/sales/sales-detail.entity";
 import { ILike, Repository } from "typeorm";
-import { TransactionDetailDto } from "./dtos/transaction_detail.dto";
+import { SalesDetailDto } from "./dtos/sales-detail.dto";
 
 @Injectable()
 export class TransactionDetailService {
@@ -71,10 +71,10 @@ export class TransactionDetailService {
     /**
      * Creates a new transaction.
      *
-     * @param {TransactionDetailDto} dto - The data transfer object containing the new transaction information.
+     * @param {SalesDetailDto} dto - The data transfer object containing the new transaction information.
      * @returns {Promise<SalesDetailEntity>} The newly created transaction entity.
      */
-    async create(dto: TransactionDetailDto) {
+    async create(dto: SalesDetailDto) {
         const transaction = this.salesDetailRepository.create(dto);
 
         return this.salesDetailRepository.save(transaction);
@@ -83,11 +83,11 @@ export class TransactionDetailService {
      * Updates an existing transaction.
      *
      * @param {string} id - The id of the transaction to update.
-     * @param {TransactionDetailDto} dto - The data transfer object containing the updated transaction information.
+     * @param {SalesDetailDto} dto - The data transfer object containing the updated transaction information.
      * @returns {Promise<SalesDetailEntity>} The updated transaction entity.
      * @throws {NotFoundException} If the transaction is not found.
      */
-    async update(id: string, dto: TransactionDetailDto) {
+    async update(id: string, dto: SalesDetailDto) {
         const transaction = await this.salesDetailRepository.findOneBy({ id });
         if (!transaction) throw new NotFoundException('Transaction not found');
         const updated = Object.assign(transaction, dto);
@@ -101,8 +101,8 @@ export class TransactionDetailService {
      * @throws {NotFoundException} If the transaction is not found.
      */
     async delete(id: string) {
-        const transaction = await this.salesDetailRepository.findOneBy({ id });
+        const transaction = await this.salesDetailRepository.softDelete(id);
         if (!transaction) throw new NotFoundException('Transaction not found');
-        return this.salesDetailRepository.remove(transaction);
+        return { message: 'Transaction deleted successfully' };
     }
 }

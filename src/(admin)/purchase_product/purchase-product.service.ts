@@ -106,9 +106,9 @@ export class PurchaseProductService {
      * @throws {NotFoundException} If the purchase product is not found.
      */
     async delete(id: string) {
-        const purchase_product = await this.purchaseProductRepository.findOne({ where: { id } });
+        const purchase_product = await this.purchaseProductRepository.softDelete(id);
         if (!purchase_product) throw new NotFoundException('Purchase product not found');
-        return this.purchaseProductRepository.remove(purchase_product);
+        return { message: 'Purchase product deleted successfully' };
     }
 
 }

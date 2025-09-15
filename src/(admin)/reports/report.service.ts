@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FinancialStatementEntity } from "src/databases/entities/report/financial-statement.entity";
 import { SalesReportEntity } from "src/databases/entities/report/sales-report.entity";
@@ -189,8 +189,9 @@ export class ReportService {
      */
     
     async deleteStockReport(id: string) {
-        const stock = await this.stockReportRepository.findOneBy({ id });
-        return await this.stockReportRepository.remove(stock);
+        const stock = await this.stockReportRepository.softDelete(id);
+        if (!stock) throw new NotFoundException('Product not found');
+        return { message: 'Product deleted successfully' };
     }
     /**
      * Deletes a sales report by id.
@@ -200,8 +201,9 @@ export class ReportService {
      * @throws {NotFoundException} If the sales report is not found.
      */
     async deleteSalesReport(id: string) {
-        const sales = await this.salesReportRepository.findOneBy({ id });
-        return await this.salesReportRepository.remove(sales);
+        const sales = await this.salesReportRepository.softDelete(id);
+        if (!sales) throw new NotFoundException('Product not found');
+        return { message: 'Product deleted successfully' };
     }
     /**
      * Deletes a financial statement by id.
@@ -211,7 +213,8 @@ export class ReportService {
      * @throws {NotFoundException} If the financial statement is not found.
      */
     async deleteFinancialStatement(id: string) {
-        const statement = await this.financialStatementRepository.findOneBy({ id });
-        return await this.financialStatementRepository.remove(statement);
+        const statement = await this.financialStatementRepository.softDelete(id);
+        if (!statement) throw new NotFoundException('Product not found');
+        return { message: 'Product deleted successfully' };
     }
 }

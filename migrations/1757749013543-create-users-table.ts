@@ -33,7 +33,7 @@ export class CreateUsersTable1757749013543 implements MigrationInterface {
                     },
                     {
                         name: "role",
-                        type: "varchar", // bisa diganti enum kalau role kamu pakai enum di database
+                        type: "varchar",
                         isNullable: false,
                     },
                     {
@@ -42,7 +42,7 @@ export class CreateUsersTable1757749013543 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: "branchId",
+                        name: "branch_id",
                         type: "uuid",
                         isNullable: true,
                     },
@@ -70,7 +70,7 @@ export class CreateUsersTable1757749013543 implements MigrationInterface {
         await queryRunner.createForeignKey(
             "users",
             new TableForeignKey({
-                columnNames: ["branchId"],
+                columnNames: ["branch_id"],
                 referencedTableName: "branch",
                 referencedColumnNames: ["id"],
                 onDelete: "SET NULL",
@@ -81,7 +81,7 @@ export class CreateUsersTable1757749013543 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         const table = await queryRunner.getTable("users");
-        const foreignKey = table?.foreignKeys.find(fk => fk.columnNames.indexOf("branchId") !== -1);
+        const foreignKey = table?.foreignKeys.find(fk => fk.columnNames.indexOf("branch_id") !== -1);
         if (foreignKey) {
             await queryRunner.dropForeignKey("users", foreignKey);
         }

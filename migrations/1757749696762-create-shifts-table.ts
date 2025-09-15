@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateShiftsTable1757749696762 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -87,22 +87,29 @@ export class CreateShiftsTable1757749696762 implements MigrationInterface {
                         isNullable: true,
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["branch_id"],
-                        referencedTableName: "branch",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                    {
-                        columnNames: ["cashier_id"],
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                ],
+
             }),
             true
+        );
+
+        await queryRunner.createForeignKey(
+            "shifts",
+            new TableForeignKey({
+                columnNames: ["branch_id"],
+                referencedTableName: "branchs",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
+        );
+
+        await queryRunner.createForeignKey(
+            "shifts",
+            new TableForeignKey({
+                columnNames: ["cashier_id"],
+                referencedTableName: "users",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
         );
     }
 

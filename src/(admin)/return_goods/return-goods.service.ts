@@ -104,8 +104,8 @@ export class ReturnOfGoodsService {
      * @throws {NotFoundException} If the return of goods is not found.
      */
     async delete(id:string){
-        const product = await this.returnOfGoodsRepository.findOne({ where: { id } });
+        const product = await this.returnOfGoodsRepository.softDelete(id);
         if (!product) throw new NotFoundException('Product not found');
-        return this.returnOfGoodsRepository.remove(product);
+        return { message: 'Product deleted successfully' };
     }
 }

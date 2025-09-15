@@ -2,7 +2,6 @@ import { UnauthorizedException, type INestApplication } from "@nestjs/common"
 import type { ConfigService } from "@nestjs/config"
 import { DocumentBuilder, SwaggerModule, type SwaggerDocumentOptions } from "@nestjs/swagger"
 import type { FastifyReply, FastifyRequest } from "fastify"
-import { AppModule } from "src/app.module"
 
 function setupSwaggerMiddleware(app: INestApplication, configService: ConfigService) {
     const swaggerUsername = configService.get<string>("SWAGGER_USERNAME", "")

@@ -5,35 +5,35 @@ import { BranchEntity } from "../branch/branch.entity";
 
 @Entity("return_of_goods")
 export class ReturnOfGoodsEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @ManyToOne(() => ProductEntity)
-    @JoinColumn({ name: 'product_id' })
-    product: ProductEntity;
+  @ManyToOne(() => ProductEntity)
+  @JoinColumn({ name: 'product_id' })
+  product: ProductEntity;
 
-    @ManyToOne(() => BranchEntity)
-    @JoinColumn({ name: 'branch_id' })
-    branch: BranchEntity;
+  @ManyToOne(() => BranchEntity)
+  @JoinColumn({ name: 'branch_id' })
+  branch: BranchEntity;
 
-    @Column()
-    amount: number;
+  @Column()
+  amount: number;
 
-    @Column()
-    reason: string;
+  @Column()
+  reason: string;
 
-    @Column({ type: "enum", enum: ["to_customer", "to_supplier"] })
-    type: "to_customer" | "to_supplier";
+  @Column({ type: "enum", enum: ["to_customer", "to_supplier"] })
+  type: "to_customer" | "to_supplier";
 
-    @Column()
-    return_date: Date;
+  @Column()
+  return_date: Date;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

@@ -53,8 +53,8 @@ export class UserAccessRightsEntity {
     @Column({ type: "enum", enum: ["create", "read", "update", "delete"] })
     action: "create" | "read" | "update" | "delete";
 
-    @Column({ nullable: true })
-    deleted_at: Date
+    @Column({ type: 'timestamp', nullable: true })
+    deleted_at?: Date;
 
     @CreateDateColumn()
     created_at: Date;

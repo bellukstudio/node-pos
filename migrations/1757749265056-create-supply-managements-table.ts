@@ -15,7 +15,7 @@ export class CreateSupplyManagementTable1757749265056 implements MigrationInterf
                         default: "uuid_generate_v4()",
                     },
                     {
-                        name: "supplierName",
+                        name: "supplier_name",
                         type: "varchar",
                         isNullable: false,
                     },

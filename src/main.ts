@@ -34,18 +34,21 @@ async function bootstrap() {
     getSecret: () => process.env.CSRF_SECRET || 'default_csrf_secret',
     cookieName: '__Host-csrf-token',
     size: 64,
+  /**
+   * Gets the CSRF token from the request headers.
+   * If the token is not found in the headers, an empty string is returned.
+   * @param {any} req - The request object.
+   * @returns {string} The CSRF token from the request headers.
+   */
     getTokenFromRequest: (req: any) =>
       req.headers['x-csrf-token'] as string || '',
   };
 
   const { doubleCsrfProtection } = doubleCsrf(doubleCsrfOptions);
 
-  // SWAGGER - Setup sebelum CSRF protection
   const configService = app.get(ConfigService);
   await registerSwaggerModule(app, configService);
 
-  // Apply CSRF protection middleware SETELAH swagger setup
-  // dan exclude swagger routes dari CSRF protection
   app.use((req: any, res: any, next: any) => {
     if (req.originalUrl && (req.originalUrl.startsWith('/swagger') || req.originalUrl.startsWith('/api/swagger'))) {
       return next();

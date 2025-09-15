@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateDiscountPromosTable1757749613380 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -66,22 +66,27 @@ export class CreateDiscountPromosTable1757749613380 implements MigrationInterfac
                         isNullable: true,
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["branch_id"],
-                        referencedTableName: "branch",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                    {
-                        columnNames: ["product_id"],
-                        referencedTableName: "product",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                ],
             }),
             true
+        );
+        await queryRunner.createForeignKey(
+            "discount_npromo",
+            new TableForeignKey({
+                columnNames: ["branch_id"],
+                referencedTableName: "branchs",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
+        );
+
+        await queryRunner.createForeignKey(
+            "discount_npromo",
+            new TableForeignKey({
+                columnNames: ["product_id"],
+                referencedTableName: "products",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE",
+            })
         );
     }
 

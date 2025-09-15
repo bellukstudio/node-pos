@@ -25,17 +25,18 @@ export class UserService {
      *   - per_page: The number of items per page.
      *   - total_pages: The total number of pages.
      */
-    async getAll(queries: any){
-        const {page = 1, per_page = 10, search = ''} = queries;
-        
+    async getAll(queries: any) {
+        const { page = 1, per_page = 10, search = '' } = queries;
+
         const take = parseInt(per_page);
         const skip = (parseInt(page) - 1) * take;
 
         const where = search
             ? [
-                {name: ILike(`%${search}%`)},
-                {email: ILike(`%${search}%`)},
-                {phone: ILike(`%${search}%`)},
+                { name: ILike(`%${search}%`) },
+                { email: ILike(`%${search}%`) },
+                { phone: ILike(`%${search}%`) },
+                { role: ILike(`%${search}%`) },
             ]
             : {};
 
@@ -43,7 +44,7 @@ export class UserService {
             where,
             take,
             skip,
-            order: {created_at: 'DESC'}
+            order: { created_at: 'DESC' }
         });
 
         return {
@@ -62,9 +63,9 @@ export class UserService {
      * @returns {Promise<UserEntity>} The found user entity.
      * @throws {NotFoundException} If the user is not found.
      */
-    async getById(id: string){
-        const user = await this.userRepository.findOneBy({id});
-        if(!user) throw new NotFoundException('User not found');
+    async getById(id: string) {
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user) throw new NotFoundException('User not found');
         return user;
     }
 
@@ -74,11 +75,11 @@ export class UserService {
      * @param {UserDto} dto - The data transfer object containing the new user information.
      * @returns {Promise<UserEntity>} The newly created user entity.
      */
-    async create(dto: UserDto){
+    async create(dto: UserDto) {
         const user = this.userRepository.create(dto);
         return this.userRepository.save(user);
     }
-    
+
     /**
      * Updates an existing user.
      *
@@ -87,9 +88,12 @@ export class UserService {
      * @returns {Promise<UserEntity>} The updated user entity.
      * @throws {NotFoundException} If the user is not found.
      */
-    async update(id: string, dto: UserDto){
-        const user = await this.userRepository.findOneBy({id});
-        if(!user) throw new NotFoundException('User not found');
+    async update(id: string, dto: UserDto) {
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user) throw new NotFoundException('User not found');
+        const update = Object.assign(user, dto);
+        return this.userRepository.save(update);
+
     }
 
     /**
@@ -99,8 +103,9 @@ export class UserService {
      * @returns {Promise<void>} A promise that resolves when the user has been deleted.
      * @throws {NotFoundException} If the user is not found.
      */
-    async delete(id: string){
-        const user = await this.userRepository.findOneBy({id});
-        if(!user) throw new NotFoundException('User not found');
+    async delete(id: string) {
+        const user = await this.userRepository.softDelete(id);
+        if (!user) throw new NotFoundException('User not found');
+        return { message: 'User deleted successfully' };
     }
 }

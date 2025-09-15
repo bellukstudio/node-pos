@@ -4,53 +4,53 @@ import { BranchEntity } from "../branch/branch.entity";
 
 @Entity("products")
 export class ProductEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column({ nullable: true })
-    image?: string;
+  @Column({ nullable: true })
+  image?: string;
 
-    @Column()
-    status: boolean;
+  @Column()
+  status: boolean;
 
-    @Column()
-    code: string;
+  @Column()
+  code: string;
 
-    @Column()
-    stock: number;
+  @Column()
+  stock: number;
 
-    @Column()
-    unit: string;
+  @Column()
+  unit: string;
 
-    @Column()
-    barcode: string;
+  @Column()
+  barcode: string;
 
-    @Column()
-    purchase_price: number;
+  @Column()
+  purchase_price: number;
 
-    @Column()
-    sale_price: number;
+  @Column()
+  sale_price: number;
 
-    @ManyToOne(() => CategoryProductEntity)
-    @JoinColumn({ name: 'categoryId' })
-    category: CategoryProductEntity;
+  @ManyToOne(() => CategoryProductEntity)
+  @JoinColumn({ name: 'categoryId' })
+  category: CategoryProductEntity;
 
-    @ManyToOne(() => BranchEntity, { nullable: true })
-    @JoinColumn({ name: 'branchId' })
-    branch: BranchEntity;
+  @ManyToOne(() => BranchEntity, { nullable: true })
+  @JoinColumn({ name: 'branchId' })
+  branch: BranchEntity;
 
-    @Column({ nullable: true })
-    deleted_at: Date
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at?: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @UpdateDateColumn({ nullable: true })
-    updated_at: Date;
+  @UpdateDateColumn({ nullable: true })
+  updated_at: Date;
 }

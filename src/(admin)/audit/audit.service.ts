@@ -113,8 +113,11 @@ export class AuditLogService {
      * @throws {NotFoundException} If the audit log is not found.
      */
     async delete(id: string) {
-        const log = await this.findOne(id);
-        log.deleted_at = new Date();
-        return await this.auditLogRepository.save(log);
+        const result = await this.auditLogRepository.softDelete(id);
+        if (result.affected === 0) {
+            throw new NotFoundException('Audit log not found');
+        }
+        return { message: 'Audit log soft deleted successfully' };
     }
+
 }

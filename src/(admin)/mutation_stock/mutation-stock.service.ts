@@ -101,8 +101,8 @@ export class MutationStockService{
      * @throws {NotFoundException} If the mutation stock is not found.
      */
     async delete(id: string) {
-        const mutationStock = await this.mutationStockRepository.findOne({ where: { id } });
+        const mutationStock = await this.mutationStockRepository.softDelete(id);
         if (!mutationStock) throw new NotFoundException('Product not found');
-        return this.mutationStockRepository.remove(mutationStock);
+        return { message: 'Product deleted successfully' };
     }
 }

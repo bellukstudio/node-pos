@@ -104,7 +104,7 @@ export class SettingsService {
         if (!user) throw new NotFoundException("User not found");
 
         const branch = await this.userAccessRightsRepository.manager.findOne(BranchEntity, {
-            where: { id: dto.branch },
+            where: { id: dto.branch.id },
         });
         if (!branch) throw new NotFoundException("Branch not found");
 

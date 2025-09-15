@@ -1,23 +1,53 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 
-
-export class BranchDto{
-    @IsNotEmpty() @IsString()
+export class BranchDto {
+    @ApiProperty({
+        description: "Nama cabang",
+        example: "Cabang Jakarta Pusat"
+    })
+    @IsNotEmpty()
+    @IsString()
     readonly name: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({
+        description: "Alamat cabang",
+        example: "Jl. Sudirman No. 123"
+    })
+    @IsNotEmpty()
+    @IsString()
     readonly address: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({
+        description: "Kota tempat cabang berada",
+        example: "Jakarta"
+    })
+    @IsNotEmpty()
+    @IsString()
     readonly city: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({
+        description: "Provinsi tempat cabang berada",
+        example: "DKI Jakarta"
+    })
+    @IsNotEmpty()
+    @IsString()
     readonly province: string;
 
-    @IsNotEmpty() @IsString()
+    @ApiProperty({
+        description: "Nomor telepon cabang",
+        example: "021-12345678"
+    })
+    @IsNotEmpty()
+    @IsString()
     readonly phone_number: string;
-    
-    @IsNotEmpty() @IsString()
+
+    @ApiProperty({
+        description: "Status aktif/tidak aktif cabang",
+        example: true,
+        default: true
+    })
+    @IsNotEmpty()
+    @IsBoolean()
     readonly status: boolean;
-    
 }

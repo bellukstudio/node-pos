@@ -84,14 +84,14 @@ export class BranchService {
         return this.branchRepository.save(branch);
     }
 
-/**
- * Updates an existing branch with new data.
- *
- * @param {string} id - The ID of the branch to update.
- * @param {BranchDto} dto - The data transfer object containing updated branch information.
- * @throws {NotFoundException} If the branch with the given ID is not found.
- * @returns {Promise<BranchEntity>} The updated branch entity.
- */
+    /**
+     * Updates an existing branch with new data.
+     *
+     * @param {string} id - The ID of the branch to update.
+     * @param {BranchDto} dto - The data transfer object containing updated branch information.
+     * @throws {NotFoundException} If the branch with the given ID is not found.
+     * @returns {Promise<BranchEntity>} The updated branch entity.
+     */
 
     async update(id: string, dto: BranchDto) {
         const branch = await this.branchRepository.findOne({ where: { id } });
@@ -101,18 +101,17 @@ export class BranchService {
         return this.branchRepository.save(updated);
     }
 
-/**
- * Deletes a branch by its ID.
- *
- * @param {string} id - The ID of the branch to be deleted.
- * @throws {NotFoundException} If the branch with the given ID is not found.
- * @returns {Promise<BranchEntity>} The removed branch entity.
- */
+    /**
+     * Deletes a branch by its ID.
+     *
+     * @param {string} id - The ID of the branch to be deleted.
+     * @throws {NotFoundException} If the branch with the given ID is not found.
+     * @returns {Promise<BranchEntity>} The removed branch entity.
+     */
 
     async delete(id: string) {
-        const branch = await this.branchRepository.findOne({ where: { id } });
+        const branch = await this.branchRepository.softDelete(id);
         if (!branch) throw new NotFoundException('Branch not found');
-
-        return this.branchRepository.remove(branch);
+        return { message: 'Branch deleted successfully' };
     }
 }
