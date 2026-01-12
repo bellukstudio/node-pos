@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { ShiftActivityLogEntity } from "src/databases/entities/shift/log-shift-activity.entity";
+import { ShiftActivityLogEntity } from "../../../databases/entities/shift/log-shift-activity.entity";
 
 export class ShiftActivityLogDto {
     @ApiProperty({

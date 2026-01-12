@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { AuthModule } from "../auth/auth.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { DetailPurchaseEntity } from "src/databases/entities/supply/detail-purchase.entity";
 import { DetailPurchaseController } from "./detail-purchase.controller";
 import { DetailPurchaseService } from "./detail-purchase.service";
+import { DetailPurchaseEntity } from "../../databases/entities/supply/detail-purchase.entity";
 
 @Module({
     imports: [

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("category_products")
 export class CategoryProductEntity {
@@ -12,7 +12,7 @@ export class CategoryProductEntity {
   @Column()
   description: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

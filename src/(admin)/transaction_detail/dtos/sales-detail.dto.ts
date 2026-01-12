@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber } from "class-validator";
-import { ProductEntity } from "src/databases/entities/product/product.entity";
-import { SalesManagementEntity } from "src/databases/entities/sales/sales-management.entity";
+import { SalesManagementEntity } from "../../../databases/entities/sales/sales-management.entity";
+import { ProductEntity } from "../../../databases/entities/product/product.entity";
 
 export class SalesDetailDto {
     @ApiProperty({

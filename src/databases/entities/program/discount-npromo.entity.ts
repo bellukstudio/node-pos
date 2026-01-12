@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { BranchEntity } from "../branch/branch.entity";
 import { ProductEntity } from "../product/product.entity";
 
@@ -31,7 +31,7 @@ export class DiscountNpromoEntity {
   @Column()
   status: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

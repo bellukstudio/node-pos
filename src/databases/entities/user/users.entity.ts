@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 import { BranchEntity } from '../branch/branch.entity';
-import { Role } from 'src/core/enum/role.enum';
+import { Role } from '../../../core/enum/role.enum';
 @Entity("users")
 export class UserEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -25,7 +25,7 @@ export class UserEntity {
   @JoinColumn({ name: 'branch_id' })
   branch: BranchEntity;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

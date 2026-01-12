@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty } from "class-validator";
-import { UserEntity } from "src/databases/entities/user/users.entity";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
+import { UserEntity } from "../../../databases/entities/user/users.entity";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export enum ModuleAccess {
     PRODUCT = "product",

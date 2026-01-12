@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 import { SupplyManagementEntity } from "./supply-management.entity";
 import { BranchEntity } from "../branch/branch.entity";
 
@@ -24,7 +24,7 @@ export class PurchaseProductEntity {
   @Column({ type: "enum", enum: ["finished", "pending"] })
   purchase_status: "finished" | "pending";
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

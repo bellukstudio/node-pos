@@ -4,9 +4,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { LoginDto } from "./dtos/login.dto";
 import { RegisterDto } from "./dtos/register.dto";
-import { verifyPassword, hashPassword } from "src/core/helpers/password";
-import { UserEntity } from "src/databases/entities/user/users.entity";
-import { Role } from "src/core/enum/role.enum";
+import { UserEntity } from "../../databases/entities/user/users.entity";
+import { Role } from "../../core/enum/role.enum";
+import { hashPassword, verifyPassword } from "../../core/helpers/password";
 
 @Injectable()
 export class AuthService {
@@ -27,7 +27,6 @@ export class AuthService {
     async register(registerDto: RegisterDto): Promise<{
         message: string,
         user: Partial<UserEntity>,
-        token?: string
     }> {
         const { name, email, password, role, branch_id } = registerDto;
 
@@ -56,22 +55,23 @@ export class AuthService {
             const savedUser = await this.userRepository.save(newUser);
 
             const { password: _, ...userResponse } = savedUser;
-
-            const token = this.jwtService.sign({
-                email: savedUser.email,
-                role: savedUser.role,
-                id: savedUser.id
-            });
+            ///
+            // const token = this.jwtService.sign({
+            //     email: savedUser.email,
+            //     role: savedUser.role,
+            //     id: savedUser.id
+            // });
 
             return {
                 message: 'User registered successfully',
                 user: userResponse,
-                token
             };
 
         } catch (error) {
             if (error.code === '23505') {
                 throw new ConflictException('User with this email already exists');
+            } else if (error.code === 'P2002') {
+                throw new ConflictException('User already exists');
             }
             throw new BadRequestException('Failed to create user');
         }
@@ -106,7 +106,7 @@ export class AuthService {
 
         const result = await this.register(adminRegisterDto);
 
-        const { token, ...response } = result;
+        const { ...response } = result;
         return response;
     }
 
@@ -138,7 +138,7 @@ export class AuthService {
 
         const result = await this.register(superAdminRegisterDto);
 
-        const { token, ...response } = result;
+        const { ...response } = result;
         return response;
     }
 

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { MemberEntity } from "../user/member.entity";
 
 
@@ -14,7 +14,7 @@ export class PointsLoyaltyEntity {
   @Column()
   points: number;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

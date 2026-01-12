@@ -7,9 +7,10 @@ import {
     IsOptional,
     IsUUID,
     IsIn,
-    Matches
+    Matches,
+    IsEmpty
 } from 'class-validator';
-import { Role } from 'src/core/enum/role.enum';
+import { Role } from '../../../core/enum/role.enum';
 
 export class RegisterDto {
     @ApiProperty({
@@ -67,6 +68,6 @@ export class RegisterDto {
         format: 'uuid'
     })
     @IsOptional()
-    @IsUUID('4', { message: 'Branch ID must be a valid UUID' })
+    // @IsUUID('4', { message: 'Branch ID must be a valid UUID' })
     branch_id?: string;
 }

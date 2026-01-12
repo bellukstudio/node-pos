@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { ILike, Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { MemberEntity } from "src/databases/entities/user/member.entity";
 import { CustomerDto } from "./dtos/customer.dto";
+import { MemberEntity } from "../../databases/entities/user/member.entity";
 
 @Injectable()
 export class CustomerService {
@@ -29,8 +29,8 @@ export class CustomerService {
      */
     async getAll(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search ? [
             { name: ILike(`%${search}%`) }
@@ -46,7 +46,7 @@ export class CustomerService {
         return {
             data: result,
             total,
-            page: parseInt(page),
+            page: Number.parseInt(page),
             per_page: take,
             total_pages: Math.ceil(total / take)
         }

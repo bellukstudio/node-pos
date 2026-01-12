@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsNumber } from "class-validator";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class SalesReportDto {
     @ApiProperty({

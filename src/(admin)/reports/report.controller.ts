@@ -14,10 +14,6 @@ import { ReportService } from "./report.service";
 import { SalesReportDto } from "./dtos/sales-report.dto";
 import { StockReportDto } from "./dtos/stock-report.dto";
 import { FinancialStatementDto } from "./dtos/financial-statement.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
-import { Role } from "src/core/enum/role.enum";
-import { Roles } from "src/core/decorators/role.decorator";
 import {
     ApiBearerAuth,
     ApiBody,
@@ -27,11 +23,15 @@ import {
     ApiResponse,
     ApiTags,
 } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags("Reports")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ReportController {
     constructor(private readonly reportService: ReportService) { }
 

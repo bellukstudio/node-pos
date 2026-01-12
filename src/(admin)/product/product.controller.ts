@@ -2,18 +2,18 @@ import {
     Body, Controller, Delete, Get, HttpCode, HttpStatus, 
     Param, Post, Put, Query, UseGuards 
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
 import { ProductService } from "./product.service";
-import { Role } from "src/core/enum/role.enum";
-import { Roles } from "src/core/decorators/role.decorator";
 import { ProductDto } from "./dtos/product.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBearerAuth } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags('Products')
 @ApiBearerAuth()
 @Controller('products')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductController {
 
     /**
@@ -29,8 +29,8 @@ export class ProductController {
     @HttpCode(HttpStatus.OK)
     @Roles(Role.Admin, Role.SuperAdmin, Role.Manager, Role.Supervisor, Role.Cashier)
     @ApiOperation({ summary: 'Retrieve all products with pagination & search' })
-    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number, defaults to 1' })
-    @ApiQuery({ name: 'per_page', required: false, type: Number, description: 'Items per page, defaults to 10' })
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number, defaults to 1', example:1})
+    @ApiQuery({ name: 'per_page', required: false, type: Number, description: 'Items per page, defaults to 10', example: 10 })
     @ApiQuery({ name: 'search', required: false, type: String, description: 'Search by product name' })
     @ApiResponse({ status: 200, description: 'Successfully retrieved products list' })
     /**

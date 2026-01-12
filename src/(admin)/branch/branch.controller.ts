@@ -11,12 +11,8 @@ import {
     Query,
     UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/core/guard/role.guard';
 import { BranchService } from './branch.service';
 import { BranchDto } from './dtos/branch.dto';
-import { Role } from 'src/core/enum/role.enum';
-import { Roles } from 'src/core/decorators/role.decorator';
 import {
     ApiTags,
     ApiBearerAuth,
@@ -26,12 +22,16 @@ import {
     ApiQuery,
     ApiBody,
 } from '@nestjs/swagger';
-import { BranchEntity } from 'src/databases/entities/branch/branch.entity';
+import { JwtAuthGuard } from '../../core/guard/jwt.guard';
+import { RolesGuard } from '../../core/guard/role.guard';
+import { Role } from '../../core/enum/role.enum';
+import { Roles } from '../../core/decorators/role.decorator';
+import { BranchEntity } from '../../databases/entities/branch/branch.entity';
 
 @ApiTags('Branches')
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class BranchController {
     constructor(private readonly branchService: BranchService) {}
 

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { PurchaseProductEntity } from "src/databases/entities/supply/purchase-product.entity";
 import { ILike, Repository } from "typeorm";
 import { PurchaseProductDto } from "./dtos/purchase-product.dto";
+import { PurchaseProductEntity } from "../../databases/entities/supply/purchase-product.entity";
 
 @Injectable()
 export class PurchaseProductService {
@@ -34,8 +34,8 @@ export class PurchaseProductService {
      */
     async getAll(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search ? [
             { branch: ILike(`%${search}%`) },
@@ -51,8 +51,8 @@ export class PurchaseProductService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }

@@ -10,19 +10,19 @@ import {
     UseGuards,
 } from "@nestjs/common";
 import { SettingsService } from "./settings.service";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
-import { Role } from "src/core/enum/role.enum";
-import { Roles } from "src/core/decorators/role.decorator";
-import { CurrentUser } from "src/core/decorators/current-user";
 import { AccessRightDto } from "./dtos/access-rights.dto";
 import { GeneralSettingDto } from "./dtos/setting.dto";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
+import { CurrentUser } from "../../core/decorators/current-user.decorator";
 
 @ApiTags("Settings")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class SettingController {
     constructor(private readonly settingService: SettingsService) { }
 

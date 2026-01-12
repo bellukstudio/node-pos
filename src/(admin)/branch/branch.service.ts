@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
 import { Repository, ILike } from "typeorm";
 import { BranchDto } from "./dtos/branch.dto";
+import { BranchEntity } from "../../databases/entities/branch/branch.entity";
 
 @Injectable()
 export class BranchService {
@@ -33,8 +33,8 @@ export class BranchService {
     async getAll(queries: any) {
         const { page = 1, per_page = 10, search = '' } = queries;
 
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search
             ? [
@@ -54,7 +54,7 @@ export class BranchService {
         return {
             data: result,
             total,
-            page: parseInt(page),
+            page: Number.parseInt(page),
             per_page: take,
             total_pages: Math.ceil(total / take),
         };

@@ -4,16 +4,16 @@ import {
 } from "@nestjs/common";
 import { MutationStockService } from "./mutation-stock.service";
 import { MutationStockDto } from "./dtos/mutation-stock.dto";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiBearerAuth } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Roles } from '../../core/decorators/role.decorator';
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags('Mutation Stock')
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class MutationStockController {
     constructor(
         private readonly mutationStockService: MutationStockService

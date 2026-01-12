@@ -1,20 +1,20 @@
 import {
     Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { RolesGuard } from "src/core/guard/role.guard";
 import { UserService } from "./user.service";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
 import { UserDto } from "./dtos/user.dto";
 import {
     ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
 } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags("Users")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
     constructor(private readonly userService: UserService) { }
 

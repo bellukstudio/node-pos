@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { PointsLoyaltyEntity } from "src/databases/entities/program/points-loyalty.entity";
 import { ILike, Repository } from "typeorm";
 import { LoyaltyDto } from "./dtos/loyalty.dto";
+import { PointsLoyaltyEntity } from "../../databases/entities/program/points-loyalty.entity";
 
 @Injectable()
 export class LoyaltyService {
@@ -26,8 +26,8 @@ export class LoyaltyService {
     **/
     async getAll(queries: any) {
         const { page = 1, per_page = 10, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
         const where = search ? [
             { member: ILike(`%${search}%`) }
         ] : {};
@@ -40,8 +40,8 @@ export class LoyaltyService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }

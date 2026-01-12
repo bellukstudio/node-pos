@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DiscountNpromoEntity } from "src/databases/entities/program/discount-npromo.entity";
 import { ILike, Repository } from "typeorm";
 import { PromoDto } from "./dtos/promo.dto";
+import { DiscountNpromoEntity } from "../../databases/entities/program/discount-npromo.entity";
 @Injectable()
 export class PromoService {
     /**
@@ -24,9 +24,9 @@ export class PromoService {
      */
     async getAll(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
+        const take = Number.parseInt(per_page);
 
-        const skip = (parseInt(page) - 1) * take;
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search ? [
             { promo_name: ILike(`%${search}%`) },
@@ -43,8 +43,8 @@ export class PromoService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }

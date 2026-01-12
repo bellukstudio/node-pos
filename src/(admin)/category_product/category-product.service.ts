@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CategoryProductEntity } from "src/databases/entities/product/category-product.entity";
 import { ILike, Repository } from "typeorm";
 import { CategoryProductDto } from "./dto/category-product.dto";
+import { CategoryProductEntity } from "../../databases/entities/product/category-product.entity";
 
 @Injectable()
 export class CategoryProductService {
@@ -35,8 +35,8 @@ export class CategoryProductService {
 
         const { page = 1, per_page = 10, search = '' } = queries;
 
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search
             ? [
@@ -54,7 +54,7 @@ export class CategoryProductService {
         return {
             data: result,
             total,
-            page: parseInt(page),
+            page: Number.parseInt(page),
             per_page: take,
             total_pages: Math.ceil(total / take),
         }

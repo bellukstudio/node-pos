@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CategoryProductEntity } from "./category-product.entity";
 import { BranchEntity } from "../branch/branch.entity";
 
@@ -45,7 +45,7 @@ export class ProductEntity {
   @JoinColumn({ name: 'branchId' })
   branch: BranchEntity;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

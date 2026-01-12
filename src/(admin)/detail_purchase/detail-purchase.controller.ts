@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { DetailPurchaseService } from "./detail-purchase.service";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
 import { DetailPurchaseDto } from "./dtos/detail_purchase.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiParam } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiBearerAuth() // JWT token authentication
 @ApiTags('Detail Purchase') // Group name di Swagger UI
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class DetailPurchaseController {
     constructor(
         private readonly detailPurchaseService: DetailPurchaseService

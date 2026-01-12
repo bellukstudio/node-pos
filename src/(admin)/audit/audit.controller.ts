@@ -11,14 +11,15 @@ import {
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiQuery, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { AuditLogDto } from './dtos/audit.dto';
 import { AuditLogService } from './audit.service';
-import { AuditLogEntity } from 'src/databases/entities/audit/log-audit.entity';
-import { RolesGuard } from 'src/core/guard/role.guard';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../../core/guard/jwt.guard';
+import { RolesGuard } from '../../core/guard/role.guard';
+import { AuditLogEntity } from '../../databases/entities/audit/log-audit.entity';
+
 
 @ApiTags('Audit Logs')
 @ApiBearerAuth()
 @Controller('audit-logs')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class AuditLogController {
     constructor(private readonly auditLogService: AuditLogService) { }
 

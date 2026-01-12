@@ -3,18 +3,18 @@ import {
 } from "@nestjs/common";
 import { TransactionService } from "./transaction.service";
 import { SalesManagementDto } from "./dtos/sales_management.dto";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
 import {
     ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
 } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags("Transactions")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class TransactionController {
     /**
      * Constructor

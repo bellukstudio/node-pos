@@ -1,6 +1,7 @@
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -30,7 +31,7 @@ export class ShiftActivityLogEntity {
     @Column()
     activity_time: Date;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @DeleteDateColumn({ nullable: true })
     deleted_at?: Date;
 
     @CreateDateColumn()

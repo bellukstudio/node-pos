@@ -13,10 +13,6 @@ import {
 } from "@nestjs/common";
 import { ReturnOfGoodsService } from "./return-goods.service";
 import { ReturnGoodsDto } from "./dtos/return-goods.dto";
-import { Role } from "src/core/enum/role.enum";
-import { Roles } from "src/core/decorators/role.decorator";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
 import {
     ApiTags,
     ApiOperation,
@@ -26,11 +22,15 @@ import {
     ApiBody,
     ApiBearerAuth,
 } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags('Return Goods')
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ReturnGoodsController {
     constructor(
         private readonly returnOfGoodsService: ReturnOfGoodsService

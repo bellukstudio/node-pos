@@ -12,11 +12,7 @@ import {
     UseGuards
 } from "@nestjs/common";
 import { CustomerService } from "./customer.service";
-import { AuthGuard } from "@nestjs/passport";
-import { Role } from "src/core/enum/role.enum";
-import { Roles } from "src/core/decorators/role.decorator";
 import { CustomerDto } from "./dtos/customer.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
 import {
     ApiTags,
     ApiBearerAuth,
@@ -26,12 +22,16 @@ import {
     ApiBody,
     ApiResponse
 } from "@nestjs/swagger";
-import { MemberEntity } from "src/databases/entities/user/member.entity";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
+import { MemberEntity } from "../../databases/entities/user/member.entity";
 
 @ApiTags("Customers")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CustomerController {
     constructor(
         private readonly customerService: CustomerService

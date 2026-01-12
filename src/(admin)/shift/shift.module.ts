@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { AuthModule } from "../auth/auth.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ShiftActivityLogEntity } from "src/databases/entities/shift/log-shift-activity.entity";
-import { ShiftEntity } from "src/databases/entities/shift/shift.entity";
 import { ShiftController } from "./shift.controller";
 import { ShiftService } from "./shift.service";
+import { ShiftEntity } from "../../databases/entities/shift/shift.entity";
+import { ShiftActivityLogEntity } from "../../databases/entities/shift/log-shift-activity.entity";
 
 
 @Module({

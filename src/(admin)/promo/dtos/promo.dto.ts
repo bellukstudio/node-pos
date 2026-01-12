@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsBoolean, IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
-import { ProductEntity } from "src/databases/entities/product/product.entity";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
+import { ProductEntity } from "../../../databases/entities/product/product.entity";
 
 export class PromoDto {
     @ApiProperty({

@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber } from "class-validator";
-import { MemberEntity } from "src/databases/entities/user/member.entity";
+import { MemberEntity } from "../../../databases/entities/user/member.entity";
 
 export class LoyaltyDto {
     @ApiProperty({

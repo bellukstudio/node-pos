@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
-import { UserEntity } from "src/databases/entities/user/users.entity";
+import { UserEntity } from "../../../databases/entities/user/users.entity";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class SalesManagementDto {
     @ApiProperty({

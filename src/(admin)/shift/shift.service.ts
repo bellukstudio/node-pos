@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ShiftEntity } from "src/databases/entities/shift/shift.entity";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
-import { UserEntity } from "src/databases/entities/user/users.entity";
 import { ShiftDto } from "./dtos/shift.dto";
-import { ShiftActivityLogEntity } from "src/databases/entities/shift/log-shift-activity.entity";
 import { ShiftActivityLogDto } from "./dtos/log-shift.dto";
+import { ShiftEntity } from "../../databases/entities/shift/shift.entity";
+import { ShiftActivityLogEntity } from "../../databases/entities/shift/log-shift-activity.entity";
+import { BranchEntity } from "../../databases/entities/branch/branch.entity";
+import { UserEntity } from "../../databases/entities/user/users.entity";
 
 @Injectable()
 export class ShiftService {
@@ -29,8 +29,8 @@ export class ShiftService {
      */
     async getAll(queries: any) {
         const { page = 1, per_page = 10, branch, cashier } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where: any = {};
         if (branch) where.branch = { id: branch };
@@ -47,8 +47,8 @@ export class ShiftService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         };
     }
@@ -134,8 +134,8 @@ export class ShiftService {
     **/
     async getAllLog(queries: any) {
         const { page = 1, per_page = 10, shift_id, activity_type } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where: any = {};
         if (shift_id) where.shift = { id: shift_id };
@@ -152,8 +152,8 @@ export class ShiftService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take),
         };
     }

@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, IsNotEmpty, IsNumber } from "class-validator";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
-import { SupplyManagementEntity } from "src/databases/entities/supply/supply-management.entity";
+import { SupplyManagementEntity } from "../../../databases/entities/supply/supply-management.entity";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class PurchaseProductDto {
     @ApiProperty({

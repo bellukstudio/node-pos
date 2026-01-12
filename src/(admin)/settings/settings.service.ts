@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { GeneralSettingEntity } from "src/databases/entities/setting/general-setting.entity";
-import { UserAccessRightsEntity } from "src/databases/entities/setting/user-access-rights.entity";
 import { Repository } from "typeorm";
 import { GeneralSettingDto } from "./dtos/setting.dto";
 import { AccessRightDto } from "./dtos/access-rights.dto";
-import { UserEntity } from "src/databases/entities/user/users.entity";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
+import { GeneralSettingEntity } from "../../databases/entities/setting/general-setting.entity";
+import { UserAccessRightsEntity } from "../../databases/entities/setting/user-access-rights.entity";
+import { UserEntity } from "../../databases/entities/user/users.entity";
+import { BranchEntity } from "../../databases/entities/branch/branch.entity";
 
 @Injectable()
 export class SettingsService {

@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/databases/entities/user/users.entity';
-import { BranchEntity } from 'src/databases/entities/branch/branch.entity';
 import { AuditLogDto } from './dtos/audit.dto';
-import { AuditLogEntity } from 'src/databases/entities/audit/log-audit.entity';
+import { AuditLogEntity } from '../../databases/entities/audit/log-audit.entity';
+import { UserEntity } from '../../databases/entities/user/users.entity';
+import { BranchEntity } from '../../databases/entities/branch/branch.entity';
 
 @Injectable()
 export class AuditLogService {
@@ -63,8 +63,8 @@ export class AuditLogService {
     **/
     async findAll(queries: any) {
         const { page = 1, per_page = 10, module, action, search } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where: any = {};
         if (module) where.module = module;
@@ -83,8 +83,8 @@ export class AuditLogService {
         return {
             data,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take),
         };
     }

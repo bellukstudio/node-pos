@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { FinancialStatementEntity } from "src/databases/entities/report/financial-statement.entity";
-import { SalesReportEntity } from "src/databases/entities/report/sales-report.entity";
-import { StockReportEntity } from "src/databases/entities/report/stock-report.entity";
 import { ILike, Repository } from "typeorm";
 import { SalesReportDto } from "./dtos/sales-report.dto";
 import { StockReportDto } from "./dtos/stock-report.dto";
 import { FinancialStatementDto } from "./dtos/financial-statement.dto";
+import { SalesReportEntity } from "../../databases/entities/report/sales-report.entity";
+import { StockReportEntity } from "../../databases/entities/report/stock-report.entity";
+import { FinancialStatementEntity } from "../../databases/entities/report/financial-statement.entity";
 
 @Injectable()
 export class ReportService {
@@ -43,8 +43,8 @@ export class ReportService {
      */
     async getSalesReport(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { date_report: ILike(`%${search}%`) },
@@ -63,8 +63,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }
@@ -85,8 +85,8 @@ export class ReportService {
      */
     async getStockReport(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { product: ILike(`%${search}%`) },
@@ -105,8 +105,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }
@@ -126,8 +126,8 @@ export class ReportService {
      */
     async getFinancialStatement(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { date_report: ILike(`%${search}%`) },
@@ -144,8 +144,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
     }

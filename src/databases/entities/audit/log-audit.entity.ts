@@ -1,6 +1,7 @@
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -83,7 +84,7 @@ export class AuditLogEntity {
     @Column({ nullable: true, type: 'text' })
     device_info: string;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @DeleteDateColumn({ nullable: true })
     deleted_at?: Date;
 
     @CreateDateColumn()

@@ -2,8 +2,8 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { UserEntity } from "src/databases/entities/user/users.entity";
 import { Repository } from "typeorm";
+import { UserEntity } from "../../databases/entities/user/users.entity";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
      */
     async validate(payload: any) {
         const { id } = payload;
-        const user = await this.userRepository.findOne({ where: { id } });
+        const user = await this.userRepository.findOne({ where: { id }, select: ['id', 'email', 'role'] });
 
         if (!user) {
             throw new UnauthorizedException('Login first to access this endpoint'); //* Throw exception if user not found

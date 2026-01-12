@@ -3,16 +3,16 @@ import {
 } from "@nestjs/common";
 import { SupplierService } from "./supplier.service";
 import { Roles } from "../../core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
 import { SupplyManagementDto } from "./dtos/supply-management.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags, ApiBody } from "@nestjs/swagger";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags("Supplier Management")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class SupplierController {
     constructor(private readonly supplierService: SupplierService) { }
 

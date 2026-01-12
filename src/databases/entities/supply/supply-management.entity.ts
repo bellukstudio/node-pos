@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 
 @Entity("supply_management")
 export class SupplyManagementEntity {
@@ -20,7 +20,7 @@ export class SupplyManagementEntity {
   @Column({ default: true })
   status: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deleted_at?: Date;
 
   @CreateDateColumn()

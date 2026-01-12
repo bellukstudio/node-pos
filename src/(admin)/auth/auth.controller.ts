@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBody } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dtos/login.dto";
 import { RegisterDto } from "./dtos/register.dto";
-import { UserEntity } from "src/databases/entities/user/users.entity";
+import { UserEntity } from "../../databases/entities/user/users.entity";
 
 @ApiTags("Auth")
 @Controller()

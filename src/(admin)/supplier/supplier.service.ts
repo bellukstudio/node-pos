@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { SupplyManagementEntity } from "src/databases/entities/supply/supply-management.entity";
 import { ILike, Repository } from "typeorm";
 import { SupplyManagementDto } from "./dtos/supply-management.dto";
+import { SupplyManagementEntity } from "../../databases/entities/supply/supply-management.entity";
 
 @Injectable()
 export class SupplierService {
@@ -34,8 +34,8 @@ export class SupplierService {
 
     async getAll(queries: any) {
         const { page = 1, per_page = 0, search = '' } = queries;
-        const take = parseInt(per_page);
-        const skip = (parseInt(page) - 1) * take;
+        const take = Number.parseInt(per_page);
+        const skip = (Number.parseInt(page) - 1) * take;
 
         const where = search ? [
             { supplier_name: ILike(`%${search}%`) }
@@ -51,8 +51,8 @@ export class SupplierService {
         return {
             data: result,
             total,
-            page: parseInt(page),
-            per_page: parseInt(per_page),
+            page: Number.parseInt(page),
+            per_page: Number.parseInt(per_page),
             total_pages: Math.ceil(total / take)
         }
 

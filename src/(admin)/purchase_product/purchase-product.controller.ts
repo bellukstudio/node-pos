@@ -3,20 +3,20 @@ import {
     Param, Post, Put, Query, UseGuards
 } from "@nestjs/common";
 import { PurchaseProductService } from "./purchase-product.service";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
 import { PurchaseProductDto } from "./dtos/purchase-product.dto";
-import { RolesGuard } from "src/core/guard/role.guard";
-import { AuthGuard } from "@nestjs/passport";
 import {
     ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody,
     ApiBearerAuth
 } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
 
 @ApiTags('Purchase Products')
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class PurchaseProductController {
     constructor(
         private readonly purchaseProductService: PurchaseProductService

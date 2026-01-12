@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsString } from "class-validator";
-import { Role } from "src/core/enum/role.enum";
-import { BranchEntity } from "src/databases/entities/branch/branch.entity";
+import { Role } from "../../../core/enum/role.enum";
+import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class UserDto {
     @ApiProperty({ description: "Nama lengkap user", example: "John Doe" })

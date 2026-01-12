@@ -1,6 +1,7 @@
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -51,7 +52,7 @@ export class ShiftEntity {
     })
     shift_status: 'active' | 'closed' | 'cancelled';
 
-    @Column({ type: 'timestamp', nullable: true })
+    @DeleteDateColumn({ nullable: true })
     deleted_at?: Date;
 
     @CreateDateColumn()

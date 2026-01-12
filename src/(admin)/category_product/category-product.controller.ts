@@ -11,11 +11,7 @@ import {
     Query,
     UseGuards,
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { RolesGuard } from "src/core/guard/role.guard";
 import { CategoryProductService } from "./category-product.service";
-import { Roles } from "src/core/decorators/role.decorator";
-import { Role } from "src/core/enum/role.enum";
 import { CategoryProductDto } from "./dto/category-product.dto";
 import {
     ApiTags,
@@ -26,12 +22,16 @@ import {
     ApiBody,
     ApiResponse,
 } from "@nestjs/swagger";
-import { CategoryProductEntity } from "src/databases/entities/product/category-product.entity";
+import { RolesGuard } from "../../core/guard/role.guard";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { Roles } from "../../core/decorators/role.decorator";
+import { Role } from "../../core/enum/role.enum";
+import { CategoryProductEntity } from "../../databases/entities/product/category-product.entity";
 
 @ApiTags("Category Products")
 @ApiBearerAuth()
 @Controller()
-@UseGuards(AuthGuard("jwt"), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CategoryProductController {
     constructor(
         private readonly categoryProductService: CategoryProductService

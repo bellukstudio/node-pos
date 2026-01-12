@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { AuthModule } from "../auth/auth.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { GeneralSettingEntity } from "src/databases/entities/setting/general-setting.entity";
-import { UserAccessRightsEntity } from "src/databases/entities/setting/user-access-rights.entity";
 import { SettingController } from "./settings.controller";
 import { SettingsService } from "./settings.service";
+import { UserAccessRightsEntity } from "../../databases/entities/setting/user-access-rights.entity";
+import { GeneralSettingEntity } from "../../databases/entities/setting/general-setting.entity";
 
 @Module({
     imports: [
