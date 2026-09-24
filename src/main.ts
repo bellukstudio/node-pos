@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { doubleCsrf } from 'csrf-csrf';
 import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';

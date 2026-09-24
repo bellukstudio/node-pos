@@ -54,8 +54,8 @@ function setupSwaggerMiddleware(app: INestApplication, configService: ConfigServ
         done(null)
     }
 
-    app.use("/swagger*", swaggerAuthMiddleware)
-    app.use("/api/swagger*", swaggerAuthMiddleware)
+    app.use("/swagger*splat", swaggerAuthMiddleware)
+    app.use("/api/swagger*splat", swaggerAuthMiddleware)
 }
 
 export default async function registerSwaggerModule(app: INestApplication, configService: ConfigService) {
