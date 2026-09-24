@@ -5,10 +5,8 @@ import {
     MinLength,
     MaxLength,
     IsOptional,
-    IsUUID,
     IsIn,
     Matches,
-    IsEmpty
 } from 'class-validator';
 import { Role } from '../../../core/enum/role.enum';
 

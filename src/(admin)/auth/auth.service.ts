@@ -67,13 +67,28 @@ export class AuthService {
                 user: userResponse,
             };
 
-        } catch (error) {
-            if (error.code === '23505') {
-                throw new ConflictException('User with this email already exists');
-            } else if (error.code === 'P2002') {
-                throw new ConflictException('User already exists');
+        } catch (error: unknown) {
+            if (
+                error &&
+                typeof error === "object" &&
+                "code" in error
+            ) {
+                const code = (error as { code: string }).code;
+
+                if (code === "23505") {
+                    throw new ConflictException(
+                        "User with this email already exists"
+                    );
+                }
+
+                if (code === "P2002") {
+                    throw new ConflictException(
+                        "User already exists",
+                    );
+                }
             }
-            throw new BadRequestException('Failed to create user');
+
+            throw new BadRequestException("Failed to create user");
         }
     }
 
