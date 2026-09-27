@@ -1,9 +1,11 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from "@nestjs/swagger";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dtos/login.dto";
 import { RegisterDto } from "./dtos/register.dto";
 import { UserEntity } from "../../databases/entities/user/users.entity";
+import { JwtAuthGuard } from "../../core/guard/jwt.guard";
+import { CurrentUser } from "../../core/decorators/current-user.decorator";
 
 @ApiTags("Auth")
 @Controller()
@@ -95,5 +97,23 @@ export class AuthController {
      */
     async login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
         return this.authService.login(loginDto);
+    }
+
+    @Get("auth/me")
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @ApiOperation({ summary: "Get the authenticated user profile" })
+    @ApiResponse({ status: 200, description: "Authenticated user profile" })
+    getMe(@CurrentUser() user: UserEntity) {
+        return this.authService.getCurrentUser(user.id);
+    }
+
+    @Post("auth/logout")
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @ApiOperation({ summary: "Log out and revoke the current user's JWTs" })
+    @ApiResponse({ status: 200, description: "Logged out successfully" })
+    logout(@CurrentUser() user: UserEntity) {
+        return this.authService.logout(user.id);
     }
 }

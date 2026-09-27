@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { SalesDetailDto } from "./dtos/sales-detail.dto";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 import { SalesDetailEntity } from "../../databases/entities/sales/sales-detail.entity";
 
 @Injectable()
@@ -33,9 +34,8 @@ export class TransactionDetailService {
      *
      **/
     async getAll(queries: any) {
-        const { page, per_page, search } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search } = queries;
 
 
         const where = search ? [
@@ -51,7 +51,7 @@ export class TransactionDetailService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
+            page,
             per_page: take,
             total_pages: Math.ceil(total / take)
         }

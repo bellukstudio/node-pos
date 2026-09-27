@@ -7,6 +7,7 @@ import { GeneralSettingEntity } from "../../databases/entities/setting/general-s
 import { UserAccessRightsEntity } from "../../databases/entities/setting/user-access-rights.entity";
 import { UserEntity } from "../../databases/entities/user/users.entity";
 import { BranchEntity } from "../../databases/entities/branch/branch.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class SettingsService {
@@ -45,23 +46,33 @@ export class SettingsService {
      * @throws {NotFoundException} If the access rights are not found
      * @returns {Promise<UserAccessRightsEntity[]>} The user access rights
      */
-    async getUserRights(userId: string, branchId?: string) {
+    async getUserRights(userId: string, branchId: string | undefined, queries: Record<string, unknown>) {
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
         const where: any = { user: { id: userId } };
 
         if (branchId) {
             where.branch = { id: branchId };
         }
 
-        const rights = await this.userAccessRightsRepository.find({
+        const [rights, total] = await this.userAccessRightsRepository.findAndCount({
             where,
             relations: ["user", "branch"],
+            take,
+            skip,
+            order: { created_at: "DESC" },
         });
 
-        if (!rights.length) {
+        if (!total) {
             throw new NotFoundException("User access rights not found");
         }
 
-        return rights;
+        return {
+            data: rights,
+            total,
+            page,
+            per_page: take,
+            total_pages: Math.ceil(total / take),
+        };
     }
 
     /**

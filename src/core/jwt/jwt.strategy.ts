@@ -23,14 +23,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
      * @param payload the payload of the JWT token
      * @returns the user if found, else throw UnauthorizedException
      */
-    async validate(payload: any) {
-        const { id } = payload;
-        const user = await this.userRepository.findOne({ where: { id }, select: ['id', 'email', 'role'] });
+    async validate(payload: { id: string; ver?: number }) {
+        const { id, ver = 0 } = payload;
+        const user = await this.userRepository.findOne({
+            where: { id, status: 'active' },
+            select: ['id', 'email', 'role', 'token_version'],
+        });
 
-        if (!user) {
-            throw new UnauthorizedException('Login first to access this endpoint'); //* Throw exception if user not found
+        if (!user || user.token_version !== ver) {
+            throw new UnauthorizedException('Authentication failed');
         }
 
-        return user;
+        const { token_version: _, ...authenticatedUser } = user;
+        return authenticatedUser;
     }
 }

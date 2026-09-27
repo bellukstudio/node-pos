@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { PromoDto } from "./dtos/promo.dto";
 import { DiscountNpromoEntity } from "../../databases/entities/program/discount-npromo.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 @Injectable()
 export class PromoService {
     /**
@@ -23,10 +24,8 @@ export class PromoService {
      * @returns {Promise<{data: DiscountNpromoEntity[], total: number, page: number, per_page: number, total_pages: number}>}
      */
     async getAll(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search ? [
             { promo_name: ILike(`%${search}%`) },
@@ -43,8 +42,8 @@ export class PromoService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }

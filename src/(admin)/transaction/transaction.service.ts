@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { SalesManagementDto } from "./dtos/sales_management.dto";
 import { SalesManagementEntity } from "../../databases/entities/sales/sales-management.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 
 @Injectable()
@@ -34,9 +35,8 @@ export class TransactionService {
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any) {
-        const { page, per_page, search } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search } = queries;
 
         const where = search ? [
             { transaction_number: ILike(`%${search}%`) },
@@ -56,7 +56,7 @@ export class TransactionService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
+            page,
             per_page: take,
             total_pages: Math.ceil(total / take)
         }

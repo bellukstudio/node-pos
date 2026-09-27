@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, ConflictException } from "@nestjs/common";
+import { BadRequestException, Injectable, ConflictException, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -54,7 +54,7 @@ export class AuthService {
         try {
             const savedUser = await this.userRepository.save(newUser);
 
-            const { password: _, ...userResponse } = savedUser;
+            const { password: _, token_version: _tokenVersion, ...userResponse } = savedUser;
             ///
             // const token = this.jwtService.sign({
             //     email: savedUser.email,
@@ -173,6 +173,7 @@ export class AuthService {
 
         const user = await this.userRepository.findOne({
             where: { email },
+            select: ['id', 'name', 'email', 'password', 'role', 'status', 'token_version', 'created_at', 'updated_at'],
             withDeleted: false
         });
 
@@ -192,18 +193,35 @@ export class AuthService {
             updated_at: new Date()
         });
 
-        const { password: _, ...userResponse } = user;
+        const { password: _, token_version: _tokenVersion, ...userResponse } = user;
 
         const token = this.jwtService.sign({
             email: user.email,
             role: user.role,
-            id: user.id
+            id: user.id,
+            ver: user.token_version,
         });
 
         return {
             token,
             user: userResponse
         };
+    }
+
+    async getCurrentUser(userId: string): Promise<Partial<UserEntity>> {
+        const user = await this.userRepository.findOne({
+            where: { id: userId, status: 'active' },
+            relations: ['branch'],
+        });
+        if (!user) throw new NotFoundException('User not found');
+        const { password: _, token_version: _tokenVersion, ...userResponse } = user;
+        return userResponse;
+    }
+
+    async logout(userId: string): Promise<{ message: string }> {
+        const result = await this.userRepository.increment({ id: userId }, 'token_version', 1);
+        if (!result.affected) throw new NotFoundException('User not found');
+        return { message: 'Logged out successfully' };
     }
 
 

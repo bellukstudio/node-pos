@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { MutationStockDto } from "./dtos/mutation-stock.dto";
 import { MutationStockEntity } from '../../databases/entities/stock/mutation-stock.entity';
+import { getPaginationOptions } from '../../core/helpers/pagination';
 
 @Injectable()
 export class MutationStockService{
@@ -33,9 +34,8 @@ export class MutationStockService{
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any){
-        const {page = 1, per_page = 0, search = ''} = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
         const where = search ? [
             { product: ILike(`%${search}%`) },
             { type: ILike(`%${search}%`) },
@@ -50,8 +50,8 @@ export class MutationStockService{
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }

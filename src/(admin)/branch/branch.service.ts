@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, ILike } from "typeorm";
 import { BranchDto } from "./dtos/branch.dto";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 import { BranchEntity } from "../../databases/entities/branch/branch.entity";
 
 @Injectable()
@@ -31,10 +32,8 @@ export class BranchService {
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any) {
-        const { page = 1, per_page = 10, search = '' } = queries;
-
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search
             ? [
@@ -54,7 +53,7 @@ export class BranchService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
+            page,
             per_page: take,
             total_pages: Math.ceil(total / take),
         };

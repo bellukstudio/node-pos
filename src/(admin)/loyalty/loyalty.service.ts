@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { LoyaltyDto } from "./dtos/loyalty.dto";
 import { PointsLoyaltyEntity } from "../../databases/entities/program/points-loyalty.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class LoyaltyService {
@@ -25,9 +26,8 @@ export class LoyaltyService {
      * @returns {Promise<{data: PointsLoyaltyEntity[], total: number, page: number, per_page: number, total_pages: number}>} The retrieved points loyalty records with pagination and search functionality.
     **/
     async getAll(queries: any) {
-        const { page = 1, per_page = 10, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
         const where = search ? [
             { member: ILike(`%${search}%`) }
         ] : {};
@@ -40,8 +40,8 @@ export class LoyaltyService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }

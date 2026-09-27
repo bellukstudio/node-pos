@@ -7,6 +7,7 @@ import { FinancialStatementDto } from "./dtos/financial-statement.dto";
 import { SalesReportEntity } from "../../databases/entities/report/sales-report.entity";
 import { StockReportEntity } from "../../databases/entities/report/stock-report.entity";
 import { FinancialStatementEntity } from "../../databases/entities/report/financial-statement.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class ReportService {
@@ -42,9 +43,8 @@ export class ReportService {
      *   - total_pages: The total number of pages.
      */
     async getSalesReport(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { date_report: ILike(`%${search}%`) },
@@ -63,8 +63,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }
@@ -84,9 +84,8 @@ export class ReportService {
      *   - total_pages: The total number of pages.
      */
     async getStockReport(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { product: ILike(`%${search}%`) },
@@ -105,8 +104,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }
@@ -125,9 +124,8 @@ export class ReportService {
      *   - total_pages: The total number of pages.
      */
     async getFinancialStatement(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
         const where = search ? [
             { branch: ILike(`%${search}%`) },
             { date_report: ILike(`%${search}%`) },
@@ -144,8 +142,8 @@ export class ReportService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }

@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { ProductDto } from "./dtos/product.dto";
 import { ProductEntity } from "../../databases/entities/product/product.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class ProductService {
@@ -33,9 +34,8 @@ export class ProductService {
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
 
         const where = search ? [
@@ -51,7 +51,7 @@ export class ProductService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
+            page,
             per_page: take,
             total_pages: Math.ceil(total / take)
         }

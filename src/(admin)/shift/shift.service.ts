@@ -7,6 +7,7 @@ import { ShiftEntity } from "../../databases/entities/shift/shift.entity";
 import { ShiftActivityLogEntity } from "../../databases/entities/shift/log-shift-activity.entity";
 import { BranchEntity } from "../../databases/entities/branch/branch.entity";
 import { UserEntity } from "../../databases/entities/user/users.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class ShiftService {
@@ -28,9 +29,8 @@ export class ShiftService {
      * @returns {Promise<{data: ShiftEntity[], total: number, page: number, per_page: number, total_pages: number}>} The retrieved shifts with pagination and filter functionality.
      */
     async getAll(queries: any) {
-        const { page = 1, per_page = 10, branch, cashier } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { branch, cashier } = queries;
 
         const where: any = {};
         if (branch) where.branch = { id: branch };
@@ -47,8 +47,8 @@ export class ShiftService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         };
     }
@@ -133,9 +133,8 @@ export class ShiftService {
      * @returns {Promise<{data: ShiftActivityLogEntity[], total: number, page: number, per_page: number, total_pages: number}>} The retrieved shift activity logs with pagination and filter functionality.
     **/
     async getAllLog(queries: any) {
-        const { page = 1, per_page = 10, shift_id, activity_type } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { shift_id, activity_type } = queries;
 
         const where: any = {};
         if (shift_id) where.shift = { id: shift_id };
@@ -152,8 +151,8 @@ export class ShiftService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take),
         };
     }

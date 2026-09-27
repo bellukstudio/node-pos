@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { DetailPurchaseDto } from "./dtos/detail_purchase.dto";
 import { DetailPurchaseEntity } from "../../databases/entities/supply/detail-purchase.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class DetailPurchaseService{
@@ -33,9 +34,8 @@ export class DetailPurchaseService{
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any){
-        const {page = 1, per_page = 0, search = ''} = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search ? [
             { purchase: ILike(`%${search}%`) },
@@ -50,8 +50,8 @@ export class DetailPurchaseService{
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         };
     }

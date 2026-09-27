@@ -37,7 +37,7 @@ export  default new DataSource({
     database: configService.getOrThrow<string>('POSTGRES_DATABASE'),
     synchronize: false,
     logging: true,
-    migrations: [__dirname + "/../migrations/*{.ts,.js}"],
+    migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
     // entities: [
     //     __dirname + '/../databases/entities/**/*{.ts,.js}',
     // ],
@@ -67,4 +67,3 @@ export  default new DataSource({
         MemberEntity,
     ],
 });
-

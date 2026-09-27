@@ -5,6 +5,7 @@ import {
     HttpCode,
     HttpStatus,
     Param,
+    Query,
     Post,
     Patch,
     UseGuards,
@@ -12,7 +13,7 @@ import {
 import { SettingsService } from "./settings.service";
 import { AccessRightDto } from "./dtos/access-rights.dto";
 import { GeneralSettingDto } from "./dtos/setting.dto";
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth, ApiQuery } from "@nestjs/swagger";
 import { RolesGuard } from "../../core/guard/role.guard";
 import { JwtAuthGuard } from "../../core/guard/jwt.guard";
 import { Roles } from "../../core/decorators/role.decorator";
@@ -40,12 +41,15 @@ export class SettingController {
     @Roles(Role.Admin, Role.SuperAdmin)
     @ApiOperation({ summary: "Get user access rights by branch" })
     @ApiParam({ name: "branchId", type: String, description: "Branch ID" })
+    @ApiQuery({ name: "page", required: false, type: Number, example: 1 })
+    @ApiQuery({ name: "per_page", required: false, type: Number, example: 10 })
     @ApiResponse({ status: 200, description: "Returns user access rights for the branch" })
     getUserRights(
         @CurrentUser() user: any,
-        @Param("branchId") branchId: string
+        @Param("branchId") branchId: string,
+        @Query() queries: Record<string, unknown>
     ) {
-        return this.settingService.getUserRights(user.id, branchId);
+        return this.settingService.getUserRights(user.id, branchId, queries);
     }
 
     @Get("access-rights/module/:module/:action")

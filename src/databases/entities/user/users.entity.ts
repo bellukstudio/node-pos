@@ -12,7 +12,7 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Column()
@@ -20,6 +20,9 @@ export class UserEntity {
 
   @Column()
   status: string;
+
+  @Column({ default: 0, select: false })
+  token_version: number;
 
   @ManyToOne(() => BranchEntity)
   @JoinColumn({ name: 'branch_id' })

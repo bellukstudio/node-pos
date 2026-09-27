@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { CategoryProductDto } from "./dto/category-product.dto";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 import { CategoryProductEntity } from "../../databases/entities/product/category-product.entity";
 
 @Injectable()
@@ -33,10 +34,8 @@ export class CategoryProductService {
      */
     async getAll(queries: any) {
 
-        const { page = 1, per_page = 10, search = '' } = queries;
-
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search
             ? [
@@ -54,7 +53,7 @@ export class CategoryProductService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
+            page,
             per_page: take,
             total_pages: Math.ceil(total / take),
         }

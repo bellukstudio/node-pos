@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { ReturnGoodsDto } from "./dtos/return-goods.dto";
 import { ReturnOfGoodsEntity } from "../../databases/entities/stock/return-of-goods.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class ReturnOfGoodsService {
@@ -31,10 +32,8 @@ export class ReturnOfGoodsService {
      *   - total_pages: The total number of pages.
      */
     async getAll(queries: any){
-        const {page =1, per_page = 0, search = ''} = queries;
-
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search ? [
             { product: ILike(`%${search}%`) },
@@ -51,8 +50,8 @@ export class ReturnOfGoodsService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
     }

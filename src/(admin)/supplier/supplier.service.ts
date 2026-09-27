@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { SupplyManagementDto } from "./dtos/supply-management.dto";
 import { SupplyManagementEntity } from "../../databases/entities/supply/supply-management.entity";
+import { getPaginationOptions } from "../../core/helpers/pagination";
 
 @Injectable()
 export class SupplierService {
@@ -33,9 +34,8 @@ export class SupplierService {
      * */
 
     async getAll(queries: any) {
-        const { page = 1, per_page = 0, search = '' } = queries;
-        const take = Number.parseInt(per_page);
-        const skip = (Number.parseInt(page) - 1) * take;
+        const { page, take, skip } = getPaginationOptions(queries.page, queries.per_page);
+        const { search = '' } = queries;
 
         const where = search ? [
             { supplier_name: ILike(`%${search}%`) }
@@ -51,8 +51,8 @@ export class SupplierService {
         return {
             data: result,
             total,
-            page: Number.parseInt(page),
-            per_page: Number.parseInt(per_page),
+            page,
+            per_page: take,
             total_pages: Math.ceil(total / take)
         }
 
