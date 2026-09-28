@@ -32,6 +32,7 @@ export class AuditLogEntity {
             'customer',
             'report',
             'setting',
+            'audit',
             'purchase',
             'shift',
             'stock',
@@ -47,6 +48,7 @@ export class AuditLogEntity {
         | 'report'
         | 'setting'
         | 'purchase'
+        | 'audit'
         | 'shift'
         | 'stock'
         | 'user'

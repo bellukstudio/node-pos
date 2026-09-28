@@ -29,6 +29,7 @@ export class AuditLogDto {
             'report',
             'setting',
             'purchase',
+            'audit',
             'shift',
             'stock',
             'user',
@@ -47,6 +48,7 @@ export class AuditLogDto {
         'purchase',
         'shift',
         'stock',
+        'audit',
         'user',
         'supplier',
         'program',
@@ -58,6 +60,7 @@ export class AuditLogDto {
         | 'report'
         | 'setting'
         | 'purchase'
+        | 'audit'
         | 'shift'
         | 'stock'
         | 'user'
