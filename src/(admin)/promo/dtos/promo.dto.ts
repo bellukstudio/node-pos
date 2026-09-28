@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 import { IsBoolean, IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 import { ProductEntity } from "../../../databases/entities/product/product.entity";
@@ -31,14 +32,16 @@ export class PromoDto {
 
     @ApiProperty({
         description: "Cabang tempat promo berlaku",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;
 
     @ApiProperty({
         description: "Produk yang mendapatkan promo",
-        type: () => ProductEntity
+        type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly product: ProductEntity;
@@ -50,8 +53,9 @@ export class PromoDto {
         example: "2025-12-31T23:59:59.000Z"
     })
     @IsOptional()
+    @Type(() => Date)
     @IsDate()
-    readonly expired: Date;
+    readonly expired?: Date;
 
     @ApiProperty({
         description: "Status promo (aktif / non-aktif)",

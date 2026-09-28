@@ -1,14 +1,16 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { ShiftActivityLogEntity } from "../../../databases/entities/shift/log-shift-activity.entity";
+import { Type } from "class-transformer";
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { ShiftEntity } from "../../../databases/entities/shift/shift.entity";
 
 export class ShiftActivityLogDto {
     @ApiProperty({
         description: "Referensi shift yang terkait dengan aktivitas ini",
-        type: () => ShiftActivityLogEntity
+        type: () => ShiftEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
-    readonly shift: ShiftActivityLogEntity;
+    readonly shift: ShiftEntity;
 
     @ApiProperty({
         description: "Jenis aktivitas yang dilakukan",
@@ -29,8 +31,12 @@ export class ShiftActivityLogDto {
 
     @ApiPropertyOptional({
         description: "Waktu aktivitas (opsional). Jika tidak diisi, gunakan waktu saat ini",
-        example: "2025-09-12T10:30:00.000Z"
+        example: "2025-09-12T10:30:00.000Z",
+        type: String,
+        format: "date-time"
     })
     @IsOptional()
+    @Type(() => Date)
+    @IsDate()
     readonly activity_time?: Date;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Type } from "class-transformer";
 
 export class GeneralSettingDto {
@@ -20,7 +20,7 @@ export class GeneralSettingDto {
 
     @ApiProperty({ description: "Email resmi toko", example: "admin@tokosejahtera.com" })
     @IsNotEmpty()
-    @IsString()
+    @IsEmail()
     readonly email: string;
 
     @ApiProperty({ description: "Persentase pajak global (dalam %)", example: 10 })

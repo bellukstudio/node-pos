@@ -7,14 +7,16 @@ import { ProductEntity } from "../../../databases/entities/product/product.entit
 export class SalesDetailDto {
     @ApiProperty({
         description: "Sales Management entity yang berhubungan dengan detail transaksi",
-        type: () => SalesManagementEntity
+        type: () => SalesManagementEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly sales: SalesManagementEntity;
 
     @ApiProperty({
         description: "Produk yang dibeli",
-        type: () => ProductEntity
+        type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly product: ProductEntity;

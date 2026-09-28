@@ -11,12 +11,14 @@ export class FinancialStatementDto {
         format: "date-time"
     })
     @IsNotEmpty()
+    @Type(() => Date)
     @IsDate()
     readonly date_report: Date;
 
     @ApiProperty({
         description: "Cabang yang membuat laporan",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;

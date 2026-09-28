@@ -4,7 +4,7 @@ import { IsNotEmpty, IsNumber, IsString, IsEmail } from "class-validator";
 
 export class CustomerDto {
     @ApiProperty({
-        description: "ID unik pelanggan (otomatis dari database)",
+        description: "Nomor pelanggan unik yang harus dikirim saat membuat pelanggan",
         example: 101
     })
     @IsNotEmpty()

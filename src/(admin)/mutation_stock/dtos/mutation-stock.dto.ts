@@ -15,6 +15,7 @@ export class MutationStockDto {
     @ApiProperty({
         description: "Produk yang mengalami perubahan stok",
         type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" },
     })
     @IsNotEmpty()
     readonly product: ProductEntity;
@@ -22,6 +23,7 @@ export class MutationStockDto {
     @ApiProperty({
         description: "Cabang tempat stok berubah",
         type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" },
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;

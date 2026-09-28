@@ -5,11 +5,19 @@ import { ProductEntity } from "../../../databases/entities/product/product.entit
 import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class ReturnGoodsDto {
-    @ApiProperty({ description: "Produk yang dikembalikan", type: () => ProductEntity })
+    @ApiProperty({
+        description: "Produk yang dikembalikan",
+        type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
+    })
     @IsNotEmpty()
     readonly product: ProductEntity;
 
-    @ApiProperty({ description: "Cabang tempat pengembalian terjadi", type: () => BranchEntity })
+    @ApiProperty({
+        description: "Cabang tempat pengembalian terjadi",
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
+    })
     @IsNotEmpty()
     readonly branch: BranchEntity;
 
@@ -35,6 +43,7 @@ export class ReturnGoodsDto {
 
     @ApiProperty({ description: "Tanggal pengembalian barang", example: "2025-09-12T10:30:00.000Z", type: String, format: "date-time" })
     @IsNotEmpty()
+    @Type(() => Date)
     @IsDate()
     readonly return_date: Date;
 }

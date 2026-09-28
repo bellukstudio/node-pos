@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { Role } from "../../../core/enum/role.enum";
 import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
@@ -11,7 +11,7 @@ export class UserDto {
 
     @ApiProperty({ description: "Alamat email user", example: "johndoe@mail.com" })
     @IsNotEmpty()
-    @IsString()
+    @IsEmail()
     readonly email: string;
 
     @ApiProperty({ description: "Nomor telepon user", example: "08123456789" })
@@ -34,7 +34,11 @@ export class UserDto {
     @IsString()
     readonly status: string;
 
-    @ApiProperty({ description: "Branch tempat user bekerja", type: () => BranchEntity })
+    @ApiProperty({
+        description: "Branch tempat user bekerja",
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
+    })
     @IsNotEmpty()
     readonly branch: BranchEntity;
 }

@@ -15,14 +15,16 @@ export class SalesManagementDto {
 
     @ApiProperty({
         description: "User yang membuat transaksi",
-        type: () => UserEntity
+        type: () => UserEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly user: UserEntity;
 
     @ApiProperty({
         description: "Branch tempat transaksi dilakukan",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;

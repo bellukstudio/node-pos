@@ -7,14 +7,16 @@ import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 export class ShiftDto {
     @ApiProperty({
         description: "Cabang tempat shift berlangsung",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;
 
     @ApiProperty({
         description: "User yang bertugas sebagai kasir pada shift ini",
-        type: () => UserEntity
+        type: () => UserEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly cashier: UserEntity;

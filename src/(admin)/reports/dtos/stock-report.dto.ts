@@ -7,14 +7,16 @@ import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 export class StockReportDto {
     @ApiProperty({
         description: "Produk yang dilaporkan",
-        type: () => ProductEntity
+        type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly product: ProductEntity;
 
     @ApiProperty({
         description: "Cabang yang membuat laporan",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;

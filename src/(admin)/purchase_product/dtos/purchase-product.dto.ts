@@ -1,20 +1,22 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsEnum, IsNotEmpty, IsNumber } from "class-validator";
+import { IsDate, IsEnum, IsNotEmpty, IsNumber } from "class-validator";
 import { SupplyManagementEntity } from "../../../databases/entities/supply/supply-management.entity";
 import { BranchEntity } from "../../../databases/entities/branch/branch.entity";
 
 export class PurchaseProductDto {
     @ApiProperty({
         description: "Supplier yang menyediakan produk",
-        type: () => SupplyManagementEntity
+        type: () => SupplyManagementEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
     })
     @IsNotEmpty()
     readonly supplier: SupplyManagementEntity;
 
     @ApiProperty({
         description: "Cabang tempat pembelian produk dilakukan",
-        type: () => BranchEntity
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;
@@ -30,14 +32,15 @@ export class PurchaseProductDto {
     readonly total_price: number;
 
     @ApiProperty({
-        description: "Tanggal pembelian dalam bentuk timestamp (epoch milliseconds)",
-        example: 1735689600000,
-        type: Number
+        description: "Tanggal pembelian dalam format ISO 8601",
+        example: "2025-01-01T00:00:00.000Z",
+        type: String,
+        format: "date-time"
     })
     @IsNotEmpty()
-    @Type(() => Number)
-    @IsNumber()
-    readonly purchase_date: number;
+    @Type(() => Date)
+    @IsDate()
+    readonly purchase_date: Date;
 
     @ApiProperty({
         description: "Status pembelian",

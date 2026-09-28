@@ -26,11 +26,19 @@ export enum AccessAction {
 }
 
 export class AccessRightDto {
-    @ApiProperty({ description: "User yang diberikan akses", type: () => UserEntity })
+    @ApiProperty({
+        description: "User yang diberikan akses",
+        type: () => UserEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" }
+    })
     @IsNotEmpty()
     readonly user: UserEntity;
 
-    @ApiProperty({ description: "Cabang di mana akses berlaku", type: () => BranchEntity })
+    @ApiProperty({
+        description: "Cabang di mana akses berlaku",
+        type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" }
+    })
     @IsNotEmpty()
     readonly branch: BranchEntity;
 

@@ -8,6 +8,7 @@ export class DetailPurchaseDto {
     @ApiProperty({
         description: "Referensi ke entitas PurchaseProduct",
         type: () => PurchaseProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" },
     })
     @IsNotEmpty()
     readonly purchase: PurchaseProductEntity;
@@ -15,6 +16,7 @@ export class DetailPurchaseDto {
     @ApiProperty({
         description: "Referensi ke entitas Product",
         type: () => ProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" },
     })
     @IsNotEmpty()
     readonly product: ProductEntity;

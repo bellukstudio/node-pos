@@ -83,6 +83,7 @@ export class ProductDto {
     @ApiProperty({
         description: "Kategori produk",
         type: () => CategoryProductEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174000" },
     })
     @IsNotEmpty()
     readonly category: CategoryProductEntity;
@@ -90,6 +91,7 @@ export class ProductDto {
     @ApiProperty({
         description: "Cabang tempat produk tersedia",
         type: () => BranchEntity,
+        example: { id: "123e4567-e89b-12d3-a456-426614174001" },
     })
     @IsNotEmpty()
     readonly branch: BranchEntity;
