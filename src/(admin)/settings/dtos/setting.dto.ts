@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 
 export class GeneralSettingDto {
@@ -7,6 +7,11 @@ export class GeneralSettingDto {
     @IsNotEmpty()
     @IsString()
     readonly store_name: string;
+
+    @ApiPropertyOptional({ description: "Logo toko" })
+    @IsOptional()
+    @IsString()
+    readonly logo?: string;
 
     @ApiProperty({ description: "Alamat lengkap toko", example: "Jl. Raya No. 123, Jakarta" })
     @IsNotEmpty()

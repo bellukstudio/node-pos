@@ -33,7 +33,7 @@ export class SettingsService {
      * @returns {Promise<GeneralSettingEntity>} The general setting
      */
     async getGeneralSetting() {
-        const setting = await this.generalSettingRepository.findOne({});
+        const setting = await this.generalSettingRepository.findOne({ where: {} });
         if (!setting) throw new NotFoundException('Setting not found');
         return setting
     }
@@ -161,12 +161,17 @@ export class SettingsService {
      * @returns {Promise<GeneralSettingEntity>} The saved general setting
      */
     async saveGeneralSetting(dto: GeneralSettingDto) {
-        let setting = await this.generalSettingRepository.findOne({});
-
+        let setting = await this.generalSettingRepository.findOne({ where: {} });
         if (setting) {
-            this.generalSettingRepository.merge(setting, dto);
+            this.generalSettingRepository.merge(setting, {
+                ...dto,
+                logo: dto.logo ?? setting.logo,
+            });
         } else {
-            setting = this.generalSettingRepository.create(dto);
+            setting = this.generalSettingRepository.create({
+                ...dto,
+                logo: dto.logo ?? "",
+            });
         }
 
         return await this.generalSettingRepository.save(setting);
