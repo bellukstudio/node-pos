@@ -18,6 +18,7 @@ import { SettingsModule } from './settings/settings.module';
 import { PromoModule } from './promo/promo.module';
 import { ShiftModule } from './shift/shift.module';
 import { AuditLogModule } from './audit/audit.module';
+import { LoyaltyModule } from './loyalty/loyalty.module';
 @Module({
   imports: [
     AuthModule,
@@ -38,7 +39,7 @@ import { AuditLogModule } from './audit/audit.module';
     PromoModule,
     ShiftModule,
     AuditLogModule,
-
+    LoyaltyModule,
     RouterModule.register([
       {
         path: 'admin',
@@ -60,6 +61,7 @@ import { AuditLogModule } from './audit/audit.module';
           { path: 'promo', module: PromoModule },
           { path: 'shift', module: ShiftModule },
           { path: 'audit', module: AuditLogModule },
+          { path: 'loyalty', module: LoyaltyModule }
         ],
       },
     ]),

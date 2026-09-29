@@ -23,50 +23,67 @@ export class AuditLogDto {
     @ApiProperty({
         description: 'Modul yang mengalami aktivitas',
         enum: [
-            'product',
-            'sale',
-            'customer',
-            'report',
-            'setting',
-            'purchase',
-            'audit',
-            'shift',
-            'stock',
-            'user',
-            'supplier',
-            'program',
+            "audit",
+            "branch",
+            "category_product",
+            "customer",
+            "detail_purchase",
+            "loyalty",
+            "mutation_stock",
+            "product",
+            "promo",
+            "purchase_product",
+            "reports",
+            "return_goods",
+            "settings",
+            "shift",
+            "supplier",
+            "transaction",
+            "transaction_detail",
+            "user",
         ],
         example: 'product',
     })
     @IsNotEmpty()
     @IsEnum([
-        'product',
-        'sale',
-        'customer',
-        'report',
-        'setting',
-        'purchase',
-        'shift',
-        'stock',
-        'audit',
-        'user',
-        'supplier',
-        'program',
+        "audit",
+        "branch",
+        "category_product",
+        "customer",
+        "detail_purchase",
+        "loyalty",
+        "mutation_stock",
+        "product",
+        "promo",
+        "purchase_product",
+        "reports",
+        "return_goods",
+        "settings",
+        "shift",
+        "supplier",
+        "transaction",
+        "transaction_detail",
+        "user",
     ])
     readonly module:
-        | 'product'
-        | 'sale'
-        | 'customer'
-        | 'report'
-        | 'setting'
-        | 'purchase'
-        | 'audit'
-        | 'shift'
-        | 'stock'
-        | 'user'
-        | 'supplier'
-        | 'program';
-
+        "audit" |
+        "branch" |
+        "category_product" |
+        "customer" |
+        "detail_purchase" |
+        "loyalty" |
+        "mutation_stock" |
+        "product" |
+        "promo" |
+        "purchase_product" |
+        "reports" |
+        "return_goods" |
+        "settings" |
+        "shift" |
+        "supplier" |
+        "transaction" |
+        "transaction_detail" |
+        "user"
     @ApiProperty({
         description: 'Jenis aktivitas yang dicatat',
         enum: ['create', 'update', 'delete', 'login', 'logout', 'print_receipt'],

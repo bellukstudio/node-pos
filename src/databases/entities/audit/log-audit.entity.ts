@@ -27,33 +27,45 @@ export class AuditLogEntity {
     @Column({
         type: 'enum',
         enum: [
-            'product',
-            'sale',
-            'customer',
-            'report',
-            'setting',
-            'audit',
-            'purchase',
-            'shift',
-            'stock',
-            'user',
-            'supplier',
-            'program',
+            "audit",
+            "branch",
+            "category_product",
+            "customer",
+            "detail_purchase",
+            "loyalty",
+            "mutation_stock",
+            "product",
+            "promo",
+            "purchase_product",
+            "reports",
+            "return_goods",
+            "settings",
+            "shift",
+            "supplier",
+            "transaction",
+            "transaction_detail",
+            "user"
         ],
     })
     module:
-        | 'product'
-        | 'sale'
-        | 'customer'
-        | 'report'
-        | 'setting'
-        | 'purchase'
-        | 'audit'
-        | 'shift'
-        | 'stock'
-        | 'user'
-        | 'supplier'
-        | 'program';
+        "audit" |
+        "branch" |
+        "category_product" |
+        "customer" |
+        "detail_purchase" |
+        "loyalty" |
+        "mutation_stock" |
+        "product" |
+        "promo" |
+        "purchase_product" |
+        "reports" |
+        "return_goods" |
+        "settings" |
+        "shift" |
+        "supplier" |
+        "transaction" |
+        "transaction_detail" |
+        "user";
 
     @Column({
         type: 'enum',
