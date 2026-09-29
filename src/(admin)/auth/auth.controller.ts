@@ -6,6 +6,7 @@ import { RegisterDto } from "./dtos/register.dto";
 import { UserEntity } from "../../databases/entities/user/users.entity";
 import { JwtAuthGuard } from "../../core/guard/jwt.guard";
 import { CurrentUser } from "../../core/decorators/current-user.decorator";
+import { RefreshTokenDto } from "./dtos/refresh-token.dto";
 
 @ApiTags("Auth")
 @Controller()
@@ -95,8 +96,21 @@ export class AuthController {
      * @returns Promise containing JWT token and user data
      * @throws {BadRequestException} if email or password is invalid
      */
-    async login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
+    async login(@Body() loginDto: LoginDto): Promise<{ token: string, refreshToken: string }> {
         return this.authService.login(loginDto);
+    }
+
+    @Post("auth/refresh-token")
+    @ApiOperation({ summary: "Refresh the access JWT token" })
+    @ApiBody({ type: RefreshTokenDto })
+    @ApiResponse({
+        status: 200,
+        description: "Access token refreshed successfully",
+        schema: { example: { token: "******" } },
+    })
+    @ApiResponse({ status: 401, description: "Invalid or expired refresh token" })
+    refresh(@Body() refreshTokenDto: RefreshTokenDto): Promise<{ token: string }> {
+        return this.authService.refreshToken(refreshTokenDto);
     }
 
     @Get("auth/me")

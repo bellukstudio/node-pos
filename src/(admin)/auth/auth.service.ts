@@ -1,4 +1,5 @@
-import { BadRequestException, Injectable, ConflictException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, ConflictException, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -7,13 +8,15 @@ import { RegisterDto } from "./dtos/register.dto";
 import { UserEntity } from "../../databases/entities/user/users.entity";
 import { Role } from "../../core/enum/role.enum";
 import { hashPassword, verifyPassword } from "../../core/helpers/password";
+import { RefreshTokenDto } from "./dtos/refresh-token.dto";
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
     ) { }
 
     /**
@@ -163,10 +166,11 @@ export class AuthService {
      * @throws {BadRequestException} if password is incorrect
      * @throws {Error} if user is not found
      * @param {LoginDto} loginDto
-     * @returns {Promise<{ token: string, user: Partial<UserEntity> }>} a JWT token and user info
+     * @returns {Promise<{ token: string, refreshToken: string, user: Partial<UserEntity> }>} JWT tokens and user info
      */
     async login(loginDto: LoginDto): Promise<{
         token: string,
+        refreshToken: string,
         user: Partial<UserEntity>
     }> {
         const { email, password } = loginDto;
@@ -201,11 +205,54 @@ export class AuthService {
             id: user.id,
             ver: user.token_version,
         });
+        const refreshToken = this.jwtService.sign({
+            id: user.id,
+            ver: user.token_version,
+            type: 'refresh',
+        }, {
+            secret: this.configService.getOrThrow('JWT_REFRESH_SECRET'),
+            expiresIn: this.configService.getOrThrow('JWT_REFRESH_EXPIRATION'),
+        });
 
         return {
             token,
+            refreshToken,
             user: userResponse
         };
+    }
+
+    async refreshToken(refreshTokenDto: RefreshTokenDto): Promise<{ token: string }> {
+        let payload: { id?: string; ver?: number; type?: string };
+
+        try {
+            payload = await this.jwtService.verifyAsync(refreshTokenDto.refreshToken, {
+                secret: this.configService.getOrThrow('JWT_REFRESH_SECRET'),
+            });
+        } catch {
+            throw new UnauthorizedException('Invalid or expired refresh token');
+        }
+
+        if (payload.type !== 'refresh' || !payload.id || payload.ver === undefined) {
+            throw new UnauthorizedException('Invalid refresh token');
+        }
+
+        const user = await this.userRepository.findOne({
+            where: { id: payload.id, status: 'active' },
+            select: ['id', 'email', 'role', 'token_version'],
+        });
+
+        if (!(!user || user.token_version !== payload.ver)) {} else {
+            throw new UnauthorizedException('Invalid refresh token');
+        }
+
+        const token = this.jwtService.sign({
+            email: user.email,
+            role: user.role,
+            id: user.id,
+            ver: user.token_version,
+        });
+
+        return { token };
     }
 
     async getCurrentUser(userId: string): Promise<Partial<UserEntity>> {
