@@ -12,7 +12,7 @@ import { Role } from "../../core/enum/role.enum";
 
 @ApiTags('Products')
 @ApiBearerAuth()
-@Controller('products')
+@Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductController {
 
