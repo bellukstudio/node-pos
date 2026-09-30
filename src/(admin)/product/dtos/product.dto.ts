@@ -1,6 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { CategoryProductEntity } from '../../../databases/entities/product/category-product.entity';
 import { BranchEntity } from '../../../databases/entities/branch/branch.entity';
 
@@ -20,6 +20,15 @@ export class ProductDto {
     @IsNotEmpty()
     @IsString()
     readonly description: string;
+
+    @ApiPropertyOptional({
+        description: "URL gambar produk",
+        example: "https://example.com/product.jpg",
+        nullable: true,
+    })
+    @IsOptional()
+    @IsString()
+    readonly image?: string | null;
 
     @ApiProperty({
         description: "Status produk (aktif atau tidak)",
